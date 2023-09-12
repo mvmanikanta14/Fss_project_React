@@ -1,19 +1,15 @@
 import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
-import { Dashboard } from "./pages/Dashboard";
-// import Clients from "./pages/listing/Clients";
-// import AddClients from "./pages/AddEdit/AddEditClient";
 
 import RequireAuth from "./pages/RequireAuth";
 import React, { useState } from "react";
 
-import Appp from "./Appp";
 import { Link } from "react-router-dom";
 
 import {} from "react-bootstrap";
 import Navapp from "./pages/Navapp";
 import NavappGreen from "./pages/NavappGreen";
-import Footer from "./pages/Footer";
+// import Footer from "./pages/Footer";
 import LoginPageAudit from "./pages/LoginPageAudit";
 import ForgetPageAudit from "./pages/ForgetPageAudit";
 import { useNavigate, useLocation } from "react-router-dom";

@@ -7,14 +7,7 @@ import { Link } from "react-router-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
-import ClientsHub from "./Hubs/ClientsHub";
 
-import AssignmentsHub from "./Hubs/AssignmentsHub";
-import MilestoneHub from "./Hubs/MilestoneHub";
-import PlansHub from "./Hubs/PlansHub";
-import UserHub from "./Hubs/UserHub";
-import DateHub from "./Hubs/DateHub";
-import { Dashboard } from "./Dashboard";
 
 
 
@@ -39,7 +32,7 @@ const Sidebars = () => {
             <ul className="mcd-menu">
               <li>
                 {" "}
-                <Link id="select-assign" to={""}>
+                <Link id="select-assign" to={"/bom"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/select_ass.png"
                     class="menu_icon"
@@ -57,7 +50,7 @@ const Sidebars = () => {
                 </Link>
               </li>
               <li>
-                <Link id="assign" to={"/assignment"}>
+                <Link id="assign" to={"/products"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/assignments.png"
                     class="menu_icon"
@@ -65,7 +58,7 @@ const Sidebars = () => {
                 </Link>
               </li>
               <li>
-                <Link id="mile" to={"/milestone"}>
+                <Link id="mile" to={"/location_list"}>
                   {" "}
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/milestone.png"
@@ -75,7 +68,7 @@ const Sidebars = () => {
               </li>
               <li>
                 {" "}
-                <Link id="plan" to={"/plans"}>
+                <Link id="plan" to={"/unit_of_measurements"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/plans.png"
                     class="menu_icon"
@@ -84,7 +77,7 @@ const Sidebars = () => {
               </li>
               <li>
                 {" "}
-                <Link id="user" to={"/users"}>
+                <Link id="user" to={"/UoM_conversions"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/users.png"
                     class="menu_icon"
@@ -94,7 +87,7 @@ const Sidebars = () => {
 
               <li>
                 {" "}
-                <Link id="setting" to={"/settings"}>
+                <Link id="setting" to={"/UoM_types"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/settings.png"
                     class="menu_icon"
@@ -103,7 +96,17 @@ const Sidebars = () => {
               </li>
               <li>
                 {" "}
-                <Link id="report" to={"/reports"}>
+                <Link id="report" to={"/product_list"}>
+                  <img
+                    src="https://old.anyaudit.co.in/img/menu_icons/reports.png"
+                    class="menu_icon"
+                  />{" "}
+                </Link>
+              </li>
+
+              <li>
+                {" "}
+                <Link id="report" to={"/costing_methods"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/reports.png"
                     class="menu_icon"
@@ -117,14 +120,8 @@ const Sidebars = () => {
           <div className="content">
             <Routes>
               <Route  element={<RequireAuth />} >
-              <Route path="/dashboard" element={<Dashboard />} />
+        
              
-              <Route path="/client_hub" element={<ClientsHub />} />
-              <Route path="/assignment_hub" element={<AssignmentsHub />} />
-              <Route path="/milestone_hub" element={<MilestoneHub />} />
-              <Route path="/plans_hub" element={<PlansHub />} />
-              <Route path="/user_hub" element={<UserHub />} />
-              <Route path="/date_hub" element={<DateHub />} />
              
              
 
