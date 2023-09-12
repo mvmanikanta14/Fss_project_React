@@ -15,7 +15,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 
 import RequireAuth from "./RequireAuth";
-import TypeofLocation from "./listing/Campus/TypeofLocation";
+import TypeofLocation from "./listing/FSSTABLES/TypeofLocation";
 // import Financialframeworkconfigure from "./listing/Financialframeworkconfigure";
 const Sidebars = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
