@@ -1,0 +1,224 @@
+{
+    Datacollectiontableinside: [
+        {
+            "id": 1,
+            "text": 10439510,
+            "Netamount": -16152.35,
+            "Credit_Amount": 16152.35,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 1,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "Gowra Metals & Polymers Pvt Ltd- Sec-Bad",
+            "Date": "2021-04-01"
+        },
+        {
+            "id": 2,
+            "text": 10439511,
+            "Netamount": -13000.00,
+            "Credit_Amount": 13000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 2,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "ABC Corporation",
+            "Date": "2021-04-02"
+        },
+        {
+            "id": 3,
+            "text": 10439512,
+            "Netamount": 5000.00,
+            "Credit_Amount": 0.00,
+            "Debit_Amount": 5000.00,
+            "Vch_No_": 3,
+            "Vch_Type": "Bank Payment",
+            "Particulars": "XYZ Suppliers",
+            "Date": "2021-04-03"
+        },
+        {
+            "id": 4,
+            "text": 10439513,
+            "Netamount": 7500.00,
+            "Credit_Amount": 7500.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 4,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "LMN Services",
+            "Date": "2021-04-04"
+        },
+        {
+            "id": 5,
+            "text": 10439514,
+            "Netamount": -8000.00,
+            "Credit_Amount": 8000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 5,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "PQR Corporation",
+            "Date": "2021-04-05"
+        },
+        {
+            "id": 6,
+            "text": 10439515,
+            "Netamount": -2500.00,
+            "Credit_Amount": 2500.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 6,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "EFG Enterprises",
+            "Date": "2021-04-06"
+        },
+        {
+            "id": 7,
+            "text": 10439516,
+            "Netamount": 10000.00,
+            "Credit_Amount": 0.00,
+            "Debit_Amount": 10000.00,
+            "Vch_No_": 7,
+            "Vch_Type": "Bank Payment",
+            "Particulars": "QRS Suppliers",
+            "Date": "2021-04-07"
+        },
+        {
+            "id": 8,
+            "text": 10439517,
+            "Netamount": 20000.00,
+            "Credit_Amount": 20000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 8,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "STU Corporation",
+            "Date": "2021-04-08"
+        },
+        {
+            "id": 9,
+            "text": 10439518,
+            "Netamount": -5000.00,
+            "Credit_Amount": 5000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 9,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "VWX Services",
+            "Date": "2021-04-09"
+        },
+        {
+            "id": 10,
+            "text": 10439519,
+            "Netamount": -6000.00,
+            "Credit_Amount": 6000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 10,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "YZA Corporation",
+            "Date": "2021-04-10"
+        },
+        {
+            "id": 11,
+            "text": 10439520,
+            "Netamount": 8000.00,
+            "Credit_Amount": 0.00,
+            "Debit_Amount": 8000.00,
+            "Vch_No_": 11,
+            "Vch_Type": "Bank Payment",
+            "Particulars": "BCD Suppliers",
+            "Date": "2021-04-11"
+        },
+        {
+            "id": 12,
+            "text": 10439521,
+            "Netamount": 3000.00,
+            "Credit_Amount": 3000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 12,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "EFG Enterprises",
+            "Date": "2021-04-12"
+        },
+        {
+            "id": 13,
+            "text": 10439522,
+            "Netamount": -9000.00,
+            "Credit_Amount": 9000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 13,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "LMN Services",
+            "Date": "2021-04-13"
+        },
+        {
+            "id": 14,
+            "text": 10439523,
+            "Netamount": -4000.00,
+            "Credit_Amount": 4000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 14,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "PQR Corporation",
+            "Date": "2021-04-14"
+        },
+        {
+            "id": 15,
+            "text": 10439524,
+            "Netamount": 10000.00,
+            "Credit_Amount": 0.00,
+            "Debit_Amount": 10000.00,
+            "Vch_No_": 15,
+            "Vch_Type": "Bank Payment",
+            "Particulars": "QRS Suppliers",
+            "Date": "2021-04-15"
+        },
+        {
+            "id": 16,
+            "text": 10439525,
+            "Netamount": 5000.00,
+            "Credit_Amount": 5000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 16,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "STU Corporation",
+            "Date": "2021-04-16"
+        },
+        {
+            "id": 17,
+            "text": 10439526,
+            "Netamount": -7000.00,
+            "Credit_Amount": 7000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 17,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "VWX Services",
+            "Date": "2021-04-17"
+        },
+        {
+            "id": 18,
+            "text": 10439527,
+            "Netamount": -6000.00,
+            "Credit_Amount": 6000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 18,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "YZA Corporation",
+            "Date": "2021-04-18"
+        },
+        {
+            "id": 19,
+            "text": 10439528,
+            "Netamount": 8000.00,
+            "Credit_Amount": 0.00,
+            "Debit_Amount": 8000.00,
+            "Vch_No_": 19,
+            "Vch_Type": "Bank Payment",
+            "Particulars": "BCD Suppliers",
+            "Date": "2021-04-19"
+        },
+        {
+            "id": 20,
+            "text": 10439529,
+            "Netamount": 3000.00,
+            "Credit_Amount": 3000.00,
+            "Debit_Amount": 0.00,
+            "Vch_No_": 20,
+            "Vch_Type": "Bank Receipt",
+            "Particulars": "EFG Enterprises",
+            "Date": "2021-04-20"
+        }
+    ]
+}

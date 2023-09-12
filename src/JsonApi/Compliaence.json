@@ -1,0 +1,112 @@
+{
+  "Compliaence": [
+    {
+      "id": 1,
+      "nameofcompliance": "Transfer Pricing reports",
+      "applicablestatutoryprovisions": "Applicable to all entities engaged in international transactions",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 2,
+      "nameofcompliance": "ITR - Audit for 93E",
+      "applicablestatutoryprovisions": "Applicable to all entities claiming deduction under section 10AA",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 3,
+      "nameofcompliance": "GSTR 1",
+      "applicablestatutoryprovisions": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groupings": "GST"
+    },
+    {
+      "id": 4,
+      "nameofcompliance": "Tax Audit Report",
+      "applicablestatutoryprovisions": "Applicable to all entities subject to tax audit",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 5,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 6,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 7,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 8,
+      "nameofcompliance": "GSTR 1",
+      "applicablestatutoryprovisions": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groupings": "GST"
+    },
+    {
+      "id": 9,
+      "nameofcompliance": "Tax Audit Report",
+      "applicablestatutoryprovisions": "Applicable to all entities subject to tax audit",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 10,
+      "nameofcompliance": "Transfer Pricing reports",
+      "applicablestatutoryprovisions": "Applicable to all entities engaged in international transactions",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 11,
+      "nameofcompliance": "ITR - Audit for 93E",
+      "applicablestatutoryprovisions": "Applicable to all entities claiming deduction under section 10AA",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 12,
+      "nameofcompliance": "GSTR 1",
+      "applicablestatutoryprovisions": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groupings": "GST"
+    },
+    {
+      "id": 13,
+      "nameofcompliance": "Tax Audit Report",
+      "applicablestatutoryprovisions": "Applicable to all entities subject to tax audit",
+      "groupings": "Income Tax"
+    },
+    {
+      "id": 14,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 15,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 16,
+      "nameofcompliance": "ITR for which audit is not required",
+      "applicablestatutoryprovisions": "Applicable to all taxpayers not subject to tax audit",
+      "groupings": "GST"
+    },
+    {
+      "id": 17,
+      "nameofcompliance": "GSTR 1",
+      "applicablestatutoryprovisions": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groupings": "GST"
+    },
+    {
+      "id": 18,
+      "nameofcompliance": "Tax Audit Report",
+      "applicablestatutoryprovisions": "Applicable to all entities subject to tax audit",
+      "groupings": "Income Tax"
+    }
+  ]
+}

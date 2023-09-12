@@ -1,0 +1,94 @@
+{
+    "ClientHub": [
+      {
+        "id": 1,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+
+
+      },
+      {
+        "id": 2,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 3,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 4,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 5,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 6,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 7,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      },
+      {
+        "id": 8,
+        "Assignment": "Assignment",
+        "TotalPlannedHrs": "23",
+        "TotalPerformedHrs": "23",
+        "PlannedHrs": "13",
+        "PerformedHrs":"21",
+        "AssignmentMilestone":"AssignmentMilestone",
+        "StartDate":"2023-03-14",
+        "EndDate":"2023-03-20"
+      }
+    ]
+  }

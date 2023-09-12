@@ -1,0 +1,112 @@
+{
+  "Classifier": [
+    {
+      "id": 1,
+      "classifiername": "juhsadusa",
+      "description": "juhsadusa",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 2,
+      "classifiername": "@@",
+      "description": "@@",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 3,
+      "classifiername": "classes june",
+      "description": "classes",
+      "groups": "GST"
+    },
+    {
+      "id": 4,
+      "classifiername": "Type of Differences",
+      "description": "Type of Differences (Temporary or parament)",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 5,
+      "classifiername": "test2324",
+      "description": "Description1",
+      "groups": "GST"
+    },
+    {
+      "id": 6,
+      "classifiername": "test23/06",
+      "description": "test23/06",
+      "groups": "GST"
+    },
+    {
+      "id": 7,
+      "classifiername": "test2 Sunny",
+      "description": "test2.1 Sunny",
+      "groups": "GST"
+    },
+    {
+      "id": 8,
+      "classifiername": "test2324",
+      "description": "Description1",
+      "groups": "GST"
+    },
+    {
+      "id": 9,
+      "classifiername": "test2 Sunny",
+      "description": "test2.1 Sunny",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 10,
+      "classifiername": "Transfer Pricing reports",
+      "description": "Applicable to all entities engaged in international transactions",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 11,
+      "classifiername": "ITR - Audit for 93E",
+      "description": "Applicable to all entities claiming deduction under section 10AA",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 12,
+      "classifiername": "GSTR 1",
+      "description": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groups": "GST"
+    },
+    {
+      "id": 13,
+      "classifiername": "Tax Audit Report",
+      "description": "Applicable to all entities subject to tax audit",
+      "groups": "Income Tax"
+    },
+    {
+      "id": 14,
+      "classifiername": "ITR for which audit is not required",
+      "description": "Applicable to all taxpayers not subject to tax audit",
+      "groups": "GST"
+    },
+    {
+      "id": 15,
+      "classifiername": "ITR for which audit is not required",
+      "description": "Applicable to all taxpayers not subject to tax audit",
+      "groups": "GST"
+    },
+    {
+      "id": 16,
+      "classifiername": "ITR for which audit is not required",
+      "description": "Applicable to all taxpayers not subject to tax audit",
+      "groups": "GST"
+    },
+    {
+      "id": 17,
+      "classifiername": "GSTR 1",
+      "description": "Monthly return to be filed by registered taxpayers to furnish details of outward supplies of goods and/or services.",
+      "groups": "GST"
+    },
+    {
+      "id": 18,
+      "classifiername": "Tax Audit Report",
+      "description": "Applicable to all entities subject to tax audit",
+      "groups": "Income Tax"
+    }
+  ]
+}

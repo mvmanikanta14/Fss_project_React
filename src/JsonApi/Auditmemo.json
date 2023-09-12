@@ -1,0 +1,106 @@
+{
+  "Auditmemo": [
+    {
+      "id": 1,
+      "seq":  " MEMO/114/1",
+      "observation": "On reviewing loan agreement, the borrower did not meet the terms and conditions indicating non compliance of loan agreement and no action was initiated from the entity.",
+      "status_compliance": " pending",
+      "status_compliance1": " Complied & Closed",
+      "status_compliance2": " Not Complied & Closed",
+      "status_finalization": "300.00",
+      "ranking": "Moderate",
+      "checker": "purna",
+      "maker": "Nishanth",
+
+      "idn":1,
+      "creation":"05-Jan-2022",
+      "notes":"Ineligible cost is capitalised to the asset",
+      "originator":"naren",
+      "public_private":"public",
+
+      "idad":"1",
+      "impact":"Overstatement of the Assets",
+      "adjusted":"0.00",
+      "unadjusted":"90000.00",
+      "impactamt":"90000.00",
+      "fss":"fss1",
+      "assertions":"Valuation",
+      "remarks":"remakrs",
+      "element":"Daybook",
+      "subject":"subject",
+
+      "seqno1":"FBO/2615/3",
+      "shortname_description":"Authentication in case of stores manager - In case of movement of goods, the outward movement is not approved by the stores manager.", 
+      "ref_text":"page 44",
+      "inspection_agency":"Physical stock verification Agency",
+      "status_approval":"approved",
+      "status_compliancef":"pending",
+
+      "idc":"COMM/88/31",
+      "question":"question1",
+      "type":"External Communication",
+      "originator1":"sana",
+      "responder":"purna",
+      "status":"initiated",
+      "creation1":"27-07-2023"
+
+
+
+
+      
+    },
+    {
+      "id": 2,
+      "seq":  "MEMO/73/5",
+      "observation": "On reviewing loan agreement, the borrower did not meet the terms and conditions indicating non compliance of loan agreement and no action was initiated from the entity.",
+      "status_compliance": "pending",
+      "status_compliance1": " Complied & Closed",
+      "status_compliance2": " Not Complied & Closed",
+      "status_finalization": "300.00",
+      "ranking": "Moderate",
+      "checker": "purna",
+      "maker": "Nishanth",
+
+      "idn":2,
+      "creation":"03-Dec-2022",
+      "notes":"Calculation of rate of discount is not uniform over the same bank.",
+      "originator":"purna",
+      "public_private":"private",
+
+      "idad":"2",
+      "impact":"Overstatement of the Assets",
+      "adjusted":"0.00",
+      "unadjusted":"90000.00",
+      "impactamt":"90000.00",
+      "fss":"fss1",
+      "assertions":"Valuation",
+      "remarks":"remakrs",
+      "element":"Daybook",
+      "subject":"subject",
+
+      "seqno1":"FBO/2615/3",
+      "shortname_description":"Authentication in case of stores manager - In case of movement of goods, the outward movement is not approved by the stores manager.", 
+      "ref_text":"page 44",
+      "inspection_agency":"Physical stock verification Agency",
+      "status_approval":"approved",
+      "status_compliancef":"pending",
+
+      "idc":"COMM/88/32",
+      "type":"External Communication",
+
+      "question":"",
+      "originator1":"sana",
+      "responder":"purna",
+      "status":"initiated",
+      "creation1":"27-07-2023"
+      
+    }
+
+    
+      
+    
+
+  
+    
+  ]
+}
