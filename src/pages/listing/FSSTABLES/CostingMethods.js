@@ -16,7 +16,7 @@ const CostingMethods = () => {
 
 
   function getAllCostingMethods() {
-    commonService.getAll(apiUrlsService.getAllCostingMethods)
+    commonService.getAll(apiUrlsService.getAllCostingTypes + "?deleted=false")
       .then((res) => {
         if (res) {
           setCostingMethodsData(res.data.content)
@@ -33,15 +33,15 @@ const CostingMethods = () => {
       setTitle("Update");
     }
   }, [])
-  const itemsPerPage = 10;
-  const [currentPage, setCurrentPage] = useState(1);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, costingmethodsdata.length);
-  const currentData = costingmethodsdata.slice(startIndex, endIndex);
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-  const totalPages = Math.ceil(costingmethodsdata.length / itemsPerPage);
+  // const itemsPerPage = 10;
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = Math.min(startIndex + itemsPerPage, costingmethodsdata.length);
+  // const currentData = costingmethodsdata.slice(startIndex, endIndex);
+  // const handlePageChange = (page) => {
+  //   setCurrentPage(page);
+  // };
+  // const totalPages = Math.ceil(costingmethodsdata.length / itemsPerPage);
   const {
     register,
     handleSubmit,
@@ -99,19 +99,24 @@ const CostingMethods = () => {
     reset();
   }
 
-  function handleRemove(id) {
-    
+  const handleRemove = (id) => {
+    const data = { deleted: "true" };
     const shouldRemove = window.confirm("Are You Sure?");
     if (shouldRemove) {
-      commonService.patch(apiUrlsService.deleteCostingMethods+id)
-      .then((res)=>{
-        console.log(res.data);
-        setCostingMethodsData(res.data)
-        swal("Success","Costing Methods Deleted SuccesFully")
-        getAllCostingMethods()
-      })
+      commonService
+        .patch(apiUrlsService.deleteCostingMethods + id, data)
+        .then((res) => {
+          console.log(res.data);
+          // Update your state properly here
+          setCostingMethodsData(res.data);
+          swal("Success", "Costing Methods Deleted Successfully");
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error appropriately
+        });
     }
-  }
+  };
 
   const [Show, setShow] = useState(false)
   const handleCloseShow = () => 
@@ -249,7 +254,7 @@ const CostingMethods = () => {
                 </thead>
                 <tbody className="table-bordered tbclass">
                  
-                  {costingmethodsdata ? currentData.slice().reverse().map((item, index) => {
+                  {costingmethodsdata ? costingmethodsdata.slice().reverse().map((item, index) => {
                     return (
                       <tr key={item.index}>
                         <td>{index + 1}</td>
@@ -284,8 +289,8 @@ const CostingMethods = () => {
             </div>
             <div className="col-md-12">
               <div className="mt-3">
-                <h7>Showing {startIndex+1} to {endIndex} of {costingmethodsdata.length} entries</h7>
-                <nav aria-label="Page navigation example" className="float-right">
+                {/* <h7>Showing {startIndex+1} to {endIndex} of {costingmethodsdata.length} entries</h7> */}
+                {/* <nav aria-label="Page navigation example" className="float-right">
                   <ul className="pagination">
                     <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                       <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
@@ -305,7 +310,7 @@ const CostingMethods = () => {
                       </button>
                     </li>
                   </ul>
-                </nav>
+                </nav> */}
               </div>
             </div>
           </div>

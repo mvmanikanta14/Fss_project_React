@@ -24,7 +24,7 @@ const TypeOfProducts = () => {
   });
 
   function getAllTypeofProducts() {
-    commonService.getAll(apiUrlsService.getAllTypeofProducts)
+    commonService.getAll(apiUrlsService.getAllProductTypes)
       .then((res) => {
         setTypeofProducts(res.data.content)
       })
