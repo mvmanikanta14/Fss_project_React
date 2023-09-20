@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 import swal from 'sweetalert';
 
 const CostingMethods = () => {
-  const [costingmethodsdata, setCostingMethodsData] = useState([])
+  const [costingmethodsdata, setCostingMethodsData] = useState([]);
   const [ids, setId] = useState("");
   const [title, setTitle] = useState("Add")
   const [editData, setEditData] = useState([])
@@ -110,6 +110,7 @@ const CostingMethods = () => {
           // Update your state properly here
           setCostingMethodsData(res.data);
           swal("Success", "Costing Methods Deleted Successfully");
+          getAllCostingMethods()
         })
         .catch((error) => {
           console.error(error);
@@ -209,7 +210,7 @@ const CostingMethods = () => {
 
                                     defaultValue={editData ? editData.name : ""} // Set initial value based on editData
                                   />
-                                  {errors.cityName && (
+                                  {errors.name && (
                                     <span className="text-danger">This is required</span>
                                   )}
                                 </div>
@@ -220,7 +221,7 @@ const CostingMethods = () => {
                                   })}
                                     defaultValue={editData ? editData.description : ""}
                                   ></textarea>
-                                  {errors.cityName && (
+                                  {errors.description && (
                                     <span className="text-danger">This is required</span>
                                   )}
                                 </div>
@@ -254,7 +255,7 @@ const CostingMethods = () => {
                 </thead>
                 <tbody className="table-bordered tbclass">
                  
-                  {costingmethodsdata ? costingmethodsdata.slice().reverse().map((item, index) => {
+                  {Array.isArray(costingmethodsdata) ? costingmethodsdata.slice().reverse().map((item, index) => {
                     return (
                       <tr key={item.index}>
                         <td>{index + 1}</td>
