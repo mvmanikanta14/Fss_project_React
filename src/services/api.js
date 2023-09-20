@@ -5,8 +5,10 @@ import { Router } from "react-router-dom";
 const instance = axios.create({
   // "http://127.0.0.1:8080/api/"
   // baseURL: "http://127.0.0.1:8080/api/",
-  // baseURL: "http://localhost:8081/api",
-  baseURL: "http://192.168.1.125:8081/api",
+     baseURL: "http://192.168.1.65:8081/api",
+    //  baseURL: "http://192.168.1.8:8081/api",
+  //  baseURL: "http://192.168.1.59:8081/api",
+
 
   headers: {
     "Content-Type": "application/json",

@@ -1,88 +1,77 @@
 class ApiUrlService {
-  // Client API URLs
-  getAllClients = "/locations/list";
-  getClientById = "/locations/update/";
-  addClient = "/locations/save";
-  getAllFramework ="/framework/list"
-  updateClient = "/locations/update/";
-  deleteClient = "/locations/";
-  
+  // TypeofLocation  API URLs
+  getAllTypeofLocation = "/anyfin/v1/location";
+  getTypeofLocationById = "/locations/update/";
+  addTypeofLocation = "/anyfin/v1/location";
+  getAllPincode ="/anyfin/v1/pin"
+  getPincodeById ="/anyfin/v1/pin/" 
+  getAllTypeofArea = "/anyfin/v1/locationtype/"
+  updateTypeofLocation = "/anyfin/v1/location/";
+ 
+//Location list
+  getLocationlist = "/anyfin/v1/locationtype"
+  addLocationList = "/anyfin/v1/locationtype/"
+  // getLocationbyId = "/anyfin/v1/locationtype/"
+  updateLocationlist =  "/anyfin/v1/locationtype/"
+
+  //Produts Api list
+
+  getAllProducts = "/anyfin/v1/product"
+  addProducts = "/anyfin/v1/product/"
+
+  //UoM List
+
+  getAllUomList = "/anyfin/v1/unitsofmeasurements"
+
+  addUoMList = "/anyfin/v1/unitsofmeasurements"
+  patchUoMList ="/anyfin/v1/unitsofmeasurements/"
+ 
+
+  //UoM Types
+
+  getAllUoMType = "/anyfin/v1/uomtype/"
 
 
-  // Assignment API URLs
-  getAllAssignments = "/assignment/list";
-  getAssignById="assignment/names";
-  getAssignmentById = "/assignment/";
-  getAllTypeofassignment ="/assignmentype/list"
-  // getAllYear ="/year/list"
-  getAllTypeofassignment ="/typeofAssign/list"
-  getAllTerm ="/terms/list"
-  getAllPeriod ="/year/list"
-  addAssignment = "/assignment/save";
-  getAllEngagementPartner = "/auth/names"
-  updateAssignment = "/assignment/update/";
-  deleteAssignment = "/assignment/";
-  getAssignmentsByClientId = "/assignment/findByClientId/";
+  // hsc url
 
-  // Milestone API URLs
-  getAllMilestones = "/milestone/list";
-  getMilestoneById = "/milestone/";
-  addMilestone = "/milestone/save";
-  updateMilestone = "/milestone/";
-  deleteMilestone = "/milestone/delete/";
-  getMilestonesByClientId = "/milestone/findByClientId/";
+  getAllhsnSac ="/anyfin/v1/hns"
 
-  // Plan API URLs
-  getAllPlans = "/plan/list";
-  getPlanById = "/plan/";
-  addPlan = "/plan/save";
-  updatePlan = "/plan/";
-  deletePlan = "/plan/";
+  //BoM Details
 
+  getAllBomDetails="/anyfin/v1/bom"
 
-  // Users API URLs
+  getUomfieldData="/anyfin/v1/uomtype"// Uom table (getting Uom Field data from Uom table to (Bom Table-->Add-->Product Field))
 
-getAllUser = "/auth/list";
-getUserById = "/auth/";
-addUser = "/auth/signup";
-getUser = "/auth/names";
+  getProductfieldData="/anyfin/v1/product"// Product table (getting product Field data from product table to (Bom Table-->Add-->Product Field))
 
+  addBoMDetails="/anyfin/v1/bom"
 
-// Checklist Api URLs
-getAllChecklist = "/CLQF/list";
-// getClientById = "/CLQF/";
+ 
 
+  //Costing Methods
 
-getChecklistById = "/CLQF/";
+  getAllCostingTypes="/anyfin/v1/costingmethods"
 
-//Process Audit Tools api URLs
-getAllProcess = "/processaudit/list";
+  addCostingMethods="/anyfin/v1/costingmethods"
 
-//Classifier Api URLs
+  getCostingMethodsById="/anyfin/v1/costingmethods/"
 
-getAllClassifier ="/classifier/list";
+  updateCostingmethods="/anyfin/v1/costingmethods/"
 
-//Audit Variable Api URLs
+  deleteCostingMethods="/anyfin/v1/costingmethods/"
 
-getAllAuditVariable = "/auditvariables/list";
+ 
 
+  //Type Of Products
 
-//Decisition Api URLs
+  getAllProductTypes="/anyfin/v1/producttype"
 
-getAllDecisition ="/decision/list";
+  addTypeOfProducts="/anyfin/v1/producttype"
 
-// Conditions Api URLs
+  updateTypeofproducts="/anyfin/v1/producttype/"
 
-getAllConditions="/conditions/list";
-
-// TemplateRisks Api URLs
-
-getAllTemplateRisks="/templateforrisks/list";
-
-
-// TemplateControls Api URLs
-
-getAllTemplateControls="/Templateforcontrols/list";
+ 
+ 
 
 }
 

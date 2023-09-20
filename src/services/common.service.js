@@ -11,6 +11,7 @@ class CommonService {
     
   }
 
+
   getById(apiUrl) {
     return api.get(apiUrl).then((response) => {
       return response;
@@ -28,6 +29,13 @@ class CommonService {
       return response;
     });
   }
+
+  patch(apiUrl, inputObj) {
+    return api.patch(apiUrl, inputObj).then((response) => {
+      return response;
+    });
+  }
+
 
   deleteById(apiUrl) {
     return api.delete(apiUrl).then((response) => {

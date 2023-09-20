@@ -16,6 +16,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import RequireAuth from "./RequireAuth";
 import TypeofLocation from "./listing/FSSTABLES/TypeofLocation";
+import Products from "./listing/FSSTABLES/Products";
+import LocationList from "./listing/FSSTABLES/LocationList";
+import UOMList from "./listing/FSSTABLES/UomList";
+import UOMTypes from "./listing/FSSTABLES/UoMTypes";
+import TypeofLocationtest from "./listing/FSSTABLES/testing";
+import SacHsc from "./listing/FSSTABLES/SacHsc";
+import BoMDetails from "./listing/FSSTABLES/BoMDetails";
+import CostingMethods from "./listing/FSSTABLES/CostingMethods";
+import TypeOfProducts from "./listing/FSSTABLES/TypeOfProducts";
+
 // import Financialframeworkconfigure from "./listing/Financialframeworkconfigure";
 const Sidebars = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -41,7 +51,7 @@ const Sidebars = () => {
               </li>
 
               <li>
-                <Link id="client" to={"/type_of_location"}>
+                <Link id="client" to={"/testing"}>
                   {" "}
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/clients.png"
@@ -68,7 +78,7 @@ const Sidebars = () => {
               </li>
               <li>
                 {" "}
-                <Link id="plan" to={"/unit_of_measurements"}>
+                <Link id="plan" to={"/UomList"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/plans.png"
                     class="menu_icon"
@@ -77,7 +87,7 @@ const Sidebars = () => {
               </li>
               <li>
                 {" "}
-                <Link id="user" to={"/UoM_conversions"}>
+                <Link id="user" to={"/sachsc"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/users.png"
                     class="menu_icon"
@@ -87,7 +97,7 @@ const Sidebars = () => {
 
               <li>
                 {" "}
-                <Link id="setting" to={"/UoM_types"}>
+                <Link id="setting" to={"/UomTypes"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/settings.png"
                     class="menu_icon"
@@ -126,7 +136,23 @@ const Sidebars = () => {
              
 
              
-              <Route path="/type_of_location" element={<TypeofLocation />} />
+              {/* <Route path="/type_of_location" element={<TypeofLocation />} /> */}
+              <Route path="/testing" element={<TypeofLocationtest />} />
+
+              <Route path="/products" element={<Products />} />
+              <Route path="/location_list" element={<LocationList />} />
+              <Route path="/UomList" element={<UOMList />} />
+              <Route path="/UomTypes" element={<UOMTypes />} />
+              <Route path="/sachsc" element={<SacHsc />} />
+
+              <Route path="/bom" element={<BoMDetails/>}/>
+              <Route path="costing_methods" element={<CostingMethods/>}/>
+              <Route path="product_list" element={<TypeOfProducts/>}/>
+
+
+
+
+
 
               
               
