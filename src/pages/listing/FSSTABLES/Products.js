@@ -19,21 +19,18 @@ const Products = () => {
   const [editData, setEditData] = useState([]);
   const [ids, setId] = useState(""); // ID for editing
   const { id } = useParams();
-  const [uomtype, setUoMType]=useState();
-  const [costingtype, setCostingType]=useState();
-  const [producttype, setProductType]=useState();
-  const [sachsntype, setSacHsnType]=useState();
-  
+  const [uomtype, setUoMType] = useState();
+  const [costingtype, setCostingType] = useState();
+  const [producttype, setProductType] = useState();
+  const [sachsntype, setSacHsnType] = useState();
 
   const navigate = useNavigate();
 
-
-
   function getAllProduct() {
-    CommonService.getAll(apiUrlsService.getAllProducts+"?deleted=false").then(
+    CommonService.getAll(apiUrlsService.getAllProducts + "?deleted=false").then(
       (response) => {
         if (response) {
-            setProducts(response.data.content);
+          setProducts(response.data.content);
         }
       },
       (error) => {
@@ -47,8 +44,8 @@ const Products = () => {
     CommonService.getAll(apiUrlsService.getAllUomList).then(
       (response) => {
         if (response) {
-          console.log(response.data.content)
-            setUoMType(response.data.content);
+          console.log(response.data.content);
+          setUoMType(response.data.content);
         }
       },
       (error) => {
@@ -61,7 +58,7 @@ const Products = () => {
     CommonService.getAll(apiUrlsService.getAllhsnSac).then(
       (response) => {
         if (response) {
-          console.log(response.data.content)
+          console.log(response.data.content);
           setSacHsnType(response.data.content);
         }
       },
@@ -75,7 +72,7 @@ const Products = () => {
     CommonService.getAll(apiUrlsService.getAllProductTypes).then(
       (response) => {
         if (response) {
-          console.log(response.data.content)
+          console.log(response.data.content);
           setProductType(response.data.content);
         }
       },
@@ -89,7 +86,7 @@ const Products = () => {
     CommonService.getAll(apiUrlsService.getAllCostingTypes).then(
       (response) => {
         if (response) {
-          console.log(response.data.content)
+          console.log(response.data.content);
           setCostingType(response.data.content);
         }
       },
@@ -106,9 +103,9 @@ const Products = () => {
     getAllProductType();
     getAllCostingType();
     if (id) {
-        setTitle("Update");
-        getTypeofLocationDetails(id);
-      }
+      setTitle("Update");
+      getTypeofLocationDetails(id);
+    }
   }, []);
 
   const {
@@ -127,7 +124,6 @@ const Products = () => {
   //     setStatus(event.target.value);
   //   };
 
-
   function getTypeofLocationDetails(id) {
     CommonService.getById(apiUrlsService.getTypeofLocationById + id).then(
       (response) => {
@@ -137,66 +133,58 @@ const Products = () => {
           setValue("typeOfArea", response.data.typeOfArea);
           setValue("address", response.data.address);
           setValue("pinCode", response.data.pinCode);
-
-          
         }
       }
     );
   }
-//   const handleClose = () => setShow(false);
-const handleShow = () => {
+  //   const handleClose = () => setShow(false);
+  const handleShow = () => {
     setTitle("Add"); // Set the form title to "Add"
     setId(""); // Clear the ID for adding
     setShow(true);
   };
-  
-//   function handleShowedit(id) {
-//     console.log(id,"this is the id of edit")
-//     getAssignmentDetails(id)
 
-//     setShow(true)
-//   }
+  //   function handleShowedit(id) {
+  //     console.log(id,"this is the id of edit")
+  //     getAssignmentDetails(id)
 
-  
+  //     setShow(true)
+  //   }
 
-   const data= {}
-    function handleRemove(id) {
-      const shouldRemove = window.confirm("Are You Sure?");
-      if (shouldRemove) {
-        data["deleted"]= "true";
-        console.log(data,"fddfd")
-        CommonService.patch(apiUrlsService.addProducts + id+"/", data).then(
-            (response) => {
-              if (response) {
-                swal("Success", " deleted succesfully..!", "success");
-                getAllProduct();
-                
-              }
-            }
-          );
-      }
+  const data = {};
+  function handleRemove(id) {
+    const shouldRemove = window.confirm("Are You Sure?");
+    if (shouldRemove) {
+      data["deleted"] = "true";
+      console.log(data, "fddfd");
+      CommonService.patch(apiUrlsService.addProducts + id + "/", data).then(
+        (response) => {
+          if (response) {
+            swal("Success", " deleted succesfully..!", "success");
+            getAllProduct();
+          }
+        }
+      );
     }
-
-  
+  }
 
   const onSubmit = (data) => {
-    // console.log(editData.id,"whilke updating")
+    console.log(data, "whilke updating");
 
     let productType_id = "";
     let costingType_id = "";
-    let hnsSacType_id ="";
+    let hnsSacType_id = "";
     let uomType_id = "";
 
-    productType_id = data["productType"]
-    costingType_id = data["costing"]
-    hnsSacType_id = data["hnsSac"]
-    uomType_id = data["uomType"]
+    productType_id = data["productType"];
+    costingType_id = data["costing"];
+    hnsSacType_id = data["hnsSac"];
+    uomType_id = data["uomType"];
 
-    data["productType"] = {"id":productType_id}
-    data["costing"] = {"id":costingType_id}
-    data["hnsSac"] = {"id":hnsSacType_id}
-    data["uomType"] = {"id":uomType_id}
-
+    data["productType"] = { id: productType_id };
+    data["costing"] = { id: costingType_id };
+    data["hnsSac"] = { id: hnsSacType_id };
+    data["uomType"] = { id: uomType_id };
 
     if (!editData.id) {
       CommonService.add(apiUrlsService.addProducts, data).then(
@@ -222,9 +210,9 @@ const handleShow = () => {
         (response) => {
           if (response) {
             const updatedProducts = products.map((item) =>
-            item.id === editData.id ? response.data : item
-          );
-          setProducts(updatedProducts);
+              item.id === editData.id ? response.data : item
+            );
+            setProducts(updatedProducts);
             swal("Success", " Updated succesfully..!", "success");
             handleClose();
             reset();
@@ -240,11 +228,11 @@ const handleShow = () => {
     }
   };
 
-//   const handleShow = () => {
-//     setTitle("Add"); // Set the form title to "Add"
-//     setId(""); // Clear the ID for adding
-//     setShow(true);
-//   };
+  //   const handleShow = () => {
+  //     setTitle("Add"); // Set the form title to "Add"
+  //     setId(""); // Clear the ID for adding
+  //     setShow(true);
+  //   };
 
   // Function to handle "Edit" button click
   const handleShowEdit = (id) => {
@@ -254,18 +242,18 @@ const handleShow = () => {
     if (itemToEdit) {
       // Set the editData state with the item data
       setEditData(itemToEdit);
-      console.log(itemToEdit.cityName,"this is the id for edit")
+      console.log(itemToEdit.cityName, "this is the id for edit");
       setTitle("Edit"); // Set the form title to "Edit"
       setId(itemToEdit.id); // Set the ID for editing
       setShow(true); // Show the modal
       reset();
 
-       // Set values for other fields as needed
-       setValue("hnsSac", itemToEdit.hnsSac.id);
-       setValue("productName", itemToEdit.productName);
-       setValue("uomType", itemToEdit.uomType.id);
-       setValue("productType", itemToEdit.productType.id);
-       setValue("costing", itemToEdit.costing.id);
+      // Set values for other fields as needed
+      setValue("hnsSac", itemToEdit.hnsSac.id);
+      setValue("productName", itemToEdit.productName);
+      setValue("uomType", itemToEdit.uomType.id);
+      setValue("productType", itemToEdit.productType.id);
+      setValue("costing", itemToEdit.costing.id);
     }
   };
 
@@ -275,6 +263,35 @@ const handleShow = () => {
     setId(""); // Reset the ID
     setShow(false);
   };
+
+  const [searchTerm, setSearchTerm] = useState("");
+  // const [selectedHsnSac, setSelectedHsnSac] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showSearchDropdown, setShowSearchDropdown] = useState(false);
+
+  const [selectedHsnSac, setSelectedHsnSac] = useState("");
+  const handleSelectHsnSac = (hsnOrSac) => {
+    console.log(id)
+    setSelectedHsnSac(hsnOrSac);
+    setShowSearchDropdown(false);
+  };
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (searchTerm !== "") {
+      const apiUrl = apiUrlsService.getAllhsnSac + "?description=" + searchTerm;
+
+      CommonService.getAll(apiUrl).then((response) => {
+        if (response) {
+          setSearchResults(response.data.content);
+        }
+      });
+    } else {
+      setSearchResults([]);
+      setSelectedHsnSac(""); // Reset selectedHsnSac when searchTerm is empty
+    }
+  }, [searchTerm]);
   return (
     <>
       <div className="container-fluid pl-2 pr-2">
@@ -327,7 +344,7 @@ const handleShow = () => {
                       ClassName="modalcustomise"
                     >
                       <Modal.Header closeButton className="border-0">
-                        <h6 className="mb-1 mt-2">Location List</h6>
+                        <h6 className="mb-1 mt-2">Product List</h6>
                       </Modal.Header>
 
                       <Modal.Body className="custom-modal-body">
@@ -338,10 +355,9 @@ const handleShow = () => {
                           >
                             <div className="container">
                               <div className="row pt-1 mt-1">
-                          
                                 <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
-                                  Product Name{" "}
+                                    Product Name{" "}
                                     <span className="text-danger">*</span>
                                   </label>
 
@@ -349,81 +365,140 @@ const handleShow = () => {
                                     type="text"
                                     placeholder="Enter Client Name"
                                     className="accordiantext"
-                                    {...register("productName", { required: true })}
-                                    defaultValue={editData ? editData.productName : ""} // Set initial value based on editData
-                                    />
+                                    {...register("productName", {
+                                      required: true,
+                                    })}
+                                    defaultValue={
+                                      editData ? editData.productName : ""
+                                    } // Set initial value based on editData
+                                  />
                                   {errors.productName && (
-                                 <span className="text-danger">This is required</span>
-                                      )}
+                                    <span className="text-danger">
+                                      This is required
+                                    </span>
+                                  )}
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
-                                  UoM Type{" "}
-                                    <span className="text-danger">*</span>
+                                    UoM <span className="text-danger">*</span>
                                   </label>
 
                                   <select
-                                className="accordiantext"
-                                {...register("uomType", { required: true })}
-                                // value={watch("typeOfArea")} // Get the selected value from the form
-                              
-                                >
-                                <option value="">---Select----</option>
-                                {uomtype &&
-                                    uomtype.map((h, i) => (
-                                    <option key={i} value={h.id}>
-                                        {h.name}
-                                    </option>
-                                    ))}
-                                </select>
+                                    className="accordiantext"
+                                    {...register("uomType", { required: true })}
+                                    // value={watch("typeOfArea")} // Get the selected value from the form
+                                  >
+                                    <option value="">---Select----</option>
+                                    {uomtype &&
+                                      uomtype.map((h, i) => (
+                                        <option key={i} value={h.id}>
+                                          {h.name}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
-                                  Costing Type{" "}
+                                    Costing Type{" "}
                                     <span className="text-danger">*</span>
                                   </label>
 
                                   <select
-                                className="accordiantext"
-                                {...register("costing", { required: true })}
-                                // value={watch("typeOfArea")} // Get the selected value from the form
-                               
-                                >
-                                <option value="">---Select----</option>
-                                {costingtype &&
-                                    costingtype.map((h, i) => (
-                                    <option key={i} value={h.id}>
-                                        {h.name}
-                                    </option>
-                                    ))}
-                                </select>
+                                    className="accordiantext"
+                                    {...register("costing", { required: true })}
+                                    // value={watch("typeOfArea")} // Get the selected value from the form
+                                  >
+                                    <option value="">---Select----</option>
+                                    {costingtype &&
+                                      costingtype.map((h, i) => (
+                                        <option key={i} value={h.id}>
+                                          {h.name}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
-                                  Product Type{" "}
+                                    Product Type{" "}
                                     <span className="text-danger">*</span>
                                   </label>
 
                                   <select
-                                className="accordiantext"
-                                {...register("productType", { required: true })}
-                                // value={watch("typeOfArea")} // Get the selected value from the form
-                                
-                                >
-                                <option value="">---Select----</option>
-                                {producttype &&
-                                    producttype.map((h, i) => (
-                                    <option key={i} value={h.id}>
-                                        {h.name}
-                                    </option>
-                                    ))}
-                                </select>
+                                    className="accordiantext"
+                                    {...register("productType", {
+                                      required: true,
+                                    })}
+                                    // value={watch("typeOfArea")} // Get the selected value from the form
+                                  >
+                                    <option value="">---Select----</option>
+                                    {producttype &&
+                                      producttype.map((h, i) => (
+                                        <option key={i} value={h.id}>
+                                          {h.name}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
-                                <div className="col-md-4 text-left mt-1 ">
+                                <div className="col-md-4 text-left mt-1">
+                                  <label className="">
+                                    Sac Hsn type{" "}
+                                    <span className="text-danger">*</span>
+                                  </label>
+
+                                  <div className="custom-dropdown">
+                                    <div
+                                      className={`selected-item ${
+                                        selectedHsnSac === ""
+                                          ? "placeholder"
+                                          : ""
+                                      }`}
+                                      onClick={() =>
+                                        setShowSearchDropdown(
+                                          !showSearchDropdown
+                                        )
+                                      }
+                                    >
+                                      {selectedHsnSac === ""
+                                        ? "---Select---"
+                                        : selectedHsnSac}
+                                    </div>
+
+                                    {showSearchDropdown && (
+                                      <div className="dropdown-options">
+                                        <input
+                                          type="text"
+                                          placeholder="Search..."
+                                          value={searchTerm}
+                                          onChange={(e) =>
+                                            setSearchTerm(e.target.value)
+                                          }
+                                        />
+                                      
+                                        <ul>
+                                          {searchResults.map((result, i) => (
+                                            <li
+                                              key={i}
+                                              onClick={() =>
+                                                handleSelectHsnSac(
+                                                  result.hsnOrSac
+                                                )
+                                              }
+                                              value = {result.id}
+                                            > 
+                                              {`${result.hsnOrSac}: ${result.description}`}
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </div>
+                                    )}
+                                  </div>
+                                </div>
+
+                                {/* <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
                                   Sac Hsn type{" "}
                                     <span className="text-danger">*</span>
@@ -443,15 +518,11 @@ const handleShow = () => {
                                     </option>
                                     ))}
                                 </select>
-                                </div>
-
-                               
-
-                               
+                                </div> */}
 
                                 <div className="col-md-12">
                                   <button className="float-right mt-1 text-white accordianbutton">
-                                  {title}
+                                    {title}
                                   </button>
                                 </div>
                               </div>
@@ -468,59 +539,63 @@ const handleShow = () => {
             <div className="col-md-12 pt-0">
               <table className="border table-striped ttable">
                 <thead className="thclass">
-                <tr>
-                <th scope="col">S No</th>
-                <th scope="col">Product Name</th>
-                <th scope="col">SAC/HSN</th>
-                <th scope="col">Product Type</th>
-                <th scope="col">Uom Type</th>
-                <th scope="col">Costing Type</th>
+                  <tr>
+                    <th scope="col">S No</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">SAC/HSN</th>
+                    <th scope="col">Product Type</th>
+                    <th scope="col">Uom</th>
+                    <th scope="col">Costing Type</th>
 
-
-                <th>Action</th>
-              </tr>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody className="table-bordered tbclass">
-                {products
-                 ? products.slice().reverse().map((item, index) => {
-                    return (
-                    <tr key={item.index}>
-                      <td>{index + 1}</td>
-                      <td>{item.productName}</td>
-                      <td>{item.hnsSac ? item.hnsSac.hsnOrSac : ""}</td>
-                      <td>{item.productType ? item.productType.name : ""}</td>
-                      <td>{item.uomType ? item.uomType.name : ""}</td>
-                      <td>{item.costing ? item.costing.name : ""}</td>
-                      <td>
-                        <>
-                          <button
-                            className="Edit-blueScreen"
-                            title="Edit"
-                            onClick={() => handleShowEdit(item.id)}
-                          >
-                            <FaPencilAlt className="pencil" />
-                          </button>
-                          &nbsp;
-                          <button
-                            className="delete-greenScreen"
-                            title="Delete"
-                            onClick={() => handleRemove(item.id)}
-                          >
-                            <FaTimes className="pencil" />
-                          </button>
-                        </>
+                  {products
+                    ? products
+                        .slice()
+                        .reverse()
+                        .map((item, index) => {
+                          return (
+                            <tr key={item.index}>
+                              <td>{index + 1}</td>
+                              <td>{item.productName}</td>
+                              <td>{item.hnsSac ? item.hnsSac.hsnOrSac : ""}</td>
+                              <td>
+                                {item.productType ? item.productType.name : ""}
+                              </td>
+                              <td>{item.uomType ? item.uomType.name : ""}</td>
+                              <td>{item.costing ? item.costing.name : ""}</td>
+                              <td>
+                                <>
+                                  <button
+                                    className="Edit-blueScreen"
+                                    title="Edit"
+                                    onClick={() => handleShowEdit(item.id)}
+                                  >
+                                    <FaPencilAlt className="pencil" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    className="delete-greenScreen"
+                                    title="Delete"
+                                    onClick={() => handleRemove(item.id)}
+                                  >
+                                    <FaTimes className="pencil" />
+                                  </button>
+                                </>
 
-                        {/* <button
+                                {/* <button
                           className="Mark-as-Inactive-checkbutton-blueScreen"
                           title="Mark as Active"
                         //   onClick={() => handleMarkAsActive(item.id)}
                         >
                           <FaCheck />
                         </button> */}
-                      </td>
-                    </tr>
-                   );
-                    })
+                              </td>
+                            </tr>
+                          );
+                        })
                     : ""}
                 </tbody>
               </table>

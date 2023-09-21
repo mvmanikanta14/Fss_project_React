@@ -20,9 +20,9 @@ const UOMTypes = () => {
   const [editData, setEditData] = useState([""]);
   const [ids, setId] = useState(""); // ID for editing
   const { id } = useParams();
+ 
   const [totalelements,setTotalElements] = useState("")
   const [offset, setOffset] = useState("")
-  const [uomtype ,  setUoMType] = useState();
 
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -31,19 +31,17 @@ const UOMTypes = () => {
   const [newOffset, setNewOffset] = useState(1);
   
   const handlePageChange = (newPageNumber) => {
+    const newOffset = (newPageNumber);
+    console.log(newPageNumber,"newPageNumber")
     setPageNumber(newPageNumber);
-    // const newOffset = (newPageNumber - 1) * recordsPerPage;
-    // Calculate the new offset for the selected page
-    setNewOffset(newPageNumber-1)
-  
-    // Make an API request to fetch data for the new page
+    // const newOffset = (newPageNumber - 1) * recordsPerPage ; // Calculate the new offset for the selected page
+    setNewOffset(newOffset);
     // getLocationlist();
   };
-  // console.log(pageNumber)
 
   function getAllUomTypes() {
     
-    const url = apiUrlsService.getAllUoMType+"?deleted=false"
+    const url = apiUrlsService.getAllUoMType+"?deleted=false&offset="+newOffset+"&limit="+recordsPerPage
     // console.log(url)
     CommonService.getAll(url).then(
       (response) => { //console.log(response.data.pageable.offset, "mani")
@@ -69,7 +67,7 @@ const UOMTypes = () => {
       setTitle("Update");
     //   getTypeofLocationDetails(id);
     }
-  }, []);
+  }, [newOffset]);
 
   const {
     register,

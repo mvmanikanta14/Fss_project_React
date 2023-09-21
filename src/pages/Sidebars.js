@@ -25,6 +25,7 @@ import SacHsc from "./listing/FSSTABLES/SacHsc";
 import BoMDetails from "./listing/FSSTABLES/BoMDetails";
 import CostingMethods from "./listing/FSSTABLES/CostingMethods";
 import TypeOfProducts from "./listing/FSSTABLES/TypeOfProducts";
+import Pincode from "./listing/FSSTABLES/Pincode";
 
 // import Financialframeworkconfigure from "./listing/Financialframeworkconfigure";
 const Sidebars = () => {
@@ -116,7 +117,17 @@ const Sidebars = () => {
 
               <li>
                 {" "}
-                <Link id="report" to={"/costing_methods"}>
+                <Link id="costing" to={"/costing_methods"}>
+                  <img
+                    src="https://old.anyaudit.co.in/img/menu_icons/reports.png"
+                    class="menu_icon"
+                  />{" "}
+                </Link>
+              </li>
+
+              <li>
+                {" "}
+                <Link id="pin" to={"/pincode"}>
                   <img
                     src="https://old.anyaudit.co.in/img/menu_icons/reports.png"
                     class="menu_icon"
@@ -148,6 +159,8 @@ const Sidebars = () => {
               <Route path="/bom" element={<BoMDetails/>}/>
               <Route path="costing_methods" element={<CostingMethods/>}/>
               <Route path="product_list" element={<TypeOfProducts/>}/>
+              <Route path="pincode" element={<Pincode/>}/>
+
 
 
 
@@ -166,15 +179,19 @@ const Sidebars = () => {
         <ReactTooltip
           anchorId="select-assign"
           place="right"
-          content="Select Assignments"
+          content="Bom"
         />
-        <ReactTooltip anchorId="client" place="right" content="Clients" />
-        <ReactTooltip anchorId="assign" place="right" content="Assignments" />
-        <ReactTooltip anchorId="mile" place="right" content="Milestones" />
-        <ReactTooltip anchorId="plan" place="right" content="Plans" />
-        <ReactTooltip anchorId="user" place="right" content="Users" />
-        <ReactTooltip anchorId="setting" place="right" content="Settings" />
-        <ReactTooltip anchorId="report" place="right" content="Reports" />
+        <ReactTooltip anchorId="client" place="right" content="Location List" />
+        <ReactTooltip anchorId="assign" place="right" content="Products" />
+        <ReactTooltip anchorId="mile" place="right" content="Location Types" />
+        <ReactTooltip anchorId="plan" place="right" content="UomList" />
+        <ReactTooltip anchorId="user" place="right" content="sachsc" />
+        <ReactTooltip anchorId="setting" place="right" content="UomTypes" />
+        <ReactTooltip anchorId="report" place="right" content="Product List" />
+        <ReactTooltip anchorId="costing" place="right" content="Costing Methods" />
+        <ReactTooltip anchorId="pin" place="right" content="Pincode" />
+
+
       </section>
     </div>
   );

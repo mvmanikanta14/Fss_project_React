@@ -30,24 +30,23 @@ const LocationList = () => {
   const [newOffset, setNewOffset] = useState(1);
   
   const handlePageChange = (newPageNumber) => {
+    const newOffset = (newPageNumber);
+    console.log(newPageNumber,"newPageNumber")
     setPageNumber(newPageNumber);
-    // const newOffset = (newPageNumber - 1) * recordsPerPage;
-    // Calculate the new offset for the selected page
-    setNewOffset(newPageNumber-1)
-  
-    // Make an API request to fetch data for the new page
-    getLocationlist();
+    // const newOffset = (newPageNumber - 1) * recordsPerPage ; // Calculate the new offset for the selected page
+    setNewOffset(newOffset);
+    // getLocationlist();
   };
   // console.log(pageNumber)
 
   function getLocationlist() {
     
-    const url = apiUrlsService.getLocationlist+"?deleted=false&offset="+newOffset+"&pageSize=10&limit="+recordsPerPage
+    const url = apiUrlsService.getLocationlist+"?deleted=false&offset="+newOffset+"&limit="+recordsPerPage
     console.log(url)
     CommonService.getAll(url).then(
-      (response) => { console.log(response.data.pageable.offset, "mani")
+      (response) => { //console.log(response.data.pageable.offset, "mani")
         if (response) {
-            // console.log(response.data.content,"data")
+            console.log(response.data.content,"data")
             setLocation(response.data.content);
             setTotalElements(response.data.totalElements)
             setOffset(response.data.pageable.offset)
@@ -66,7 +65,7 @@ const LocationList = () => {
       setTitle("Update");
       getTypeofLocationDetails(id);
     }
-  }, []);
+  }, [newOffset]);
 
   const {
     register,
@@ -138,12 +137,14 @@ const LocationList = () => {
       CommonService.add(apiUrlsService.addLocationList, data).then(
         (response) => {
           if (response) {
+            const totalPages = Math.ceil((totalElements + 1) / recordsPerPage);
+            // Set the page number to the last page
+            setPageNumber(totalPages);
             setLocation([...location, response.data]);
             swal("Success", " added successfully..!", "success");
             reset();
             handleClose();
-            setPageNumber(1); // Reset page number to 1
-            // getLocationlist();
+            // setPageNumber(1); // Reset page number to 1
             // console.log(response.data, "mani");
           }
         },
@@ -178,6 +179,8 @@ const LocationList = () => {
         }
       );
     }
+            getLocationlist();
+
     reset();
   };
 
@@ -351,11 +354,12 @@ const LocationList = () => {
                 </thead>
                 <tbody className="table-bordered tbclass">
                   {location
-                    ? location
-                        .slice()
-                        .reverse()
-                        .map((item, index) => {
-                          const sNo = (pageNumber - 1) * recordsPerPage + (index + 1);
+                    ? location.slice().reverse().map((item, index) => {
+                          const sNo =
+                          pageNumber * recordsPerPage -
+                          recordsPerPage +
+                          index +
+                          1;
                           return (
                             <tr key={item.index}>
                               <td>{sNo}</td>
@@ -383,13 +387,7 @@ const LocationList = () => {
                                   </button>
                                 </>
 
-                                {/* <button
-                          className="Mark-as-Inactive-checkbutton-blueScreen"
-                          title="Mark as Active"
-                        //   onClick={() => handleMarkAsActive(item.id)}
-                        >
-                          <FaCheck />
-                        </button> */}
+                               
                               </td>
                             </tr>
                           );
@@ -398,60 +396,7 @@ const LocationList = () => {
                 </tbody>
               </table>
             </div>
-            {/* <div className="col-md-12">
-              <div className="mt-3">
-                <h7>Showing 1 to 10 of 10 entries</h7>
-
-                <nav
-                  aria-label="Page navigation example"
-                  className=" float-right"
-                >
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Previous
-                      </a>
-                    </li>
-
-                    <li class="page-item active ">
-                      <a class="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-
-                    <li class="page-item ">
-                      <a class="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#">
-                        4
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        5
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div> */}
+           
             <Pagination
               
                offset={offset}

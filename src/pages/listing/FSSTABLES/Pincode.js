@@ -13,20 +13,33 @@ import { FaCheck } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
-const SacHsc = () => {
-  const [typeoflocation, setTypeofLocation] = useState([]);
- 
+const Pincode = () => {
+
   const { id } = useParams();
+  const [pincode, setPincode] = useState();
  
   const navigate = useNavigate();
 
-  function getAllTypeofLocation() {
-    CommonService.getAll(apiUrlsService.getAllhsnSac).then(
-      (response) => {
-        console.log(response, "responsehkyig");
+
+  
+
+  useEffect(() => {
+    getAllPincode();
+    // if (id) {
+    //   setTitle("Update");
+    
+    // }
+  }, []);
+
+ 
+  function getAllPincode() {
+    CommonService.getAll(apiUrlsService.getAllPincode).then(
+      (response) => { 
+        // console.log(response, "here pincode")
         if (response) {
-          console.log(response.data.content, "yudgfydg");
-          setTypeofLocation(response.data.content);
+
+          setPincode(response.data.content);
+          
         }
       },
       (error) => {
@@ -35,65 +48,56 @@ const SacHsc = () => {
     );
   }
 
-  useEffect(() => {
-    getAllTypeofLocation();
-   
-    // getLocationType();
-    // if (id) {
-    //   setTitle("Update");
-    // }
-  }, []);
-
  
 
- 
- 
-
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    console.log(searchTerm, "searchTerm");
+    console.log(searchTerm,"searchTerm")
     // Define your API endpoint
     // const apiUrl = `https://your-api-endpoint.com/search?term=${searchTerm}`;
-    const apiUrl = apiUrlsService.getAllhsnSac + "?description=" + searchTerm;
+    const apiUrl = apiUrlsService.getAllPincode+'?pinCode='+searchTerm;
 
-    console.log(apiUrl, "apiUrl");
+    console.log(apiUrl,"apiUrl")
     // Function to fetch data from the API
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        CommonService.getAll(apiUrl).then((response) => {
+        CommonService.getAll(apiUrl).then(
+          (response) => {
           if (response) {
-            console.log(response, "yudgfydg");
-            setTypeofLocation(response.data.content);
-          }
-        });
-      } catch (error) {
-        //   console.log(response,"ijij")
-        //   if (!response.ok) {
-        //     throw new Error('Network response was not ok');
-        //   }
-
-        //   // const data = await response;
-
-        //   setTypeofLocation(response.content);
-        //   setIsLoading(false);
-        console.log("error", error);
+          console.log(response,"yudgfydg")
+          setPincode(response.data.content);
+        }})
+      }
+    
+      //   console.log(response,"ijij")
+      //   if (!response.ok) {
+      //     throw new Error('Network response was not ok');
+      //   }
+        
+      //   // const data = await response;
+        
+      //   setTypeofLocation(response.content);
+      //   setIsLoading(false);
+       catch (error) {
+        console.log("error",error)
         // console.error('Error fetching data:', error);
         setIsLoading(false);
-      }
+      };
     };
+  
 
     // Only fetch data if the search term is not empty
-    if (searchTerm !== "") {
+    if (searchTerm !== '') {
       fetchData();
     } else {
-      getAllTypeofLocation();
+    getAllPincode();
     }
   }, [searchTerm]);
-
+  
   return (
     <>
       <div className="container-fluid pl-2 pr-2">
@@ -106,7 +110,7 @@ const SacHsc = () => {
                 </Link>{" "}
                 /{" "}
                 <Link className="svg-icon-height bread" to={"/settings"}>
-                  Sac Hsc List
+                PinCode
                 </Link>{" "}
               </div>
               <div className="col-md-6 text-rightss">
@@ -119,29 +123,29 @@ const SacHsc = () => {
                 </div>
               </div>
             </div>
-            <div className="header-title">Sac Hsc List</div>
+            <div className="header-title">PinCode</div>
           </div>
 
           <div className="col-md-12 border bg-white pb- pt-2 mt-3 mb-4 pl-0 pr-0 rounded">
             <div className="col-md-12">
-              <div>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                {isLoading ? (
-                  <p>Loading...</p>
-                ) : (
-                  <ul>
-                    {searchResults.map((result) => (
-                      <li key={result.id}>{result.name}</li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-             
+            <div>
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                        />
+                        {isLoading ? (
+                            <p>Loading...</p>
+                        ) : (
+                            <ul>
+                            {searchResults.map((result) => (
+                                <li key={result.id}>{result.name}</li>
+                            ))}
+                            </ul>
+                        )}
+                        </div>
+            
             </div>
 
             <div className="col-md-12 pt-0">
@@ -149,32 +153,35 @@ const SacHsc = () => {
                 <thead className="thclass">
                   <tr>
                     <th>S.No</th>
-                    <th>hsnOrSac</th>
-                    <th>description </th>
-                    <th>rateOfTax</th>
-
+                    <th>State Name</th>
+                    <th>City Name </th>
+                    <th>PinCode</th>
+                    <th>State Key</th>
+                    <th>City Key</th>
                    
                   </tr>
                 </thead>
                 <tbody className="table-bordered tbclass">
-                  {Array.isArray(typeoflocation)
-                    ? typeoflocation
+                {Array.isArray(pincode)
+                    ? pincode
                         .slice()
                         .reverse()
                         .map((item, index) => {
                           return (
                             <tr key={item.index}>
                               <td>{index + 1}</td>
-                              <td>
-                                <Link>{item.hsnOrSac}</Link>
-                              </td>
-                              <td>{item.description}</td>
-                              <td>{item.rateOfTax}</td>
+                              <td>{item.stateName} </td>  
+                              <td>{item.cityName}</td>
+                              <td>{item.pinCode}</td>
+                              <td>{item.stateKey}</td>
+                              <td>{item.cityKey}</td>
+
+                
                              
                             </tr>
                           );
                         })
-                    : null}
+                    : ""}
                 </tbody>
               </table>
             </div>
@@ -239,4 +246,4 @@ const SacHsc = () => {
   );
 };
 
-export default SacHsc;
+export default Pincode;

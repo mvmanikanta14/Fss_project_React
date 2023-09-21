@@ -12,6 +12,7 @@ import { Modal, Button } from "react-bootstrap";
 import { FaCheck } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import Pagination from "./Pagination";
 
 const TypeofLocationtest = () => {
   const [typeoflocation, setTypeofLocation] = useState([]);
@@ -26,13 +27,39 @@ const TypeofLocationtest = () => {
   const [cityNameP, setCityNameP] = useState("");
   const navigate = useNavigate();
 
+  const [totalelements, setTotalElements] = useState("");
+  const [offset, setOffset] = useState("");
+
+  const [pageNumber, setPageNumber] = useState(1);
+  const totalElements = totalelements; // Replace with your actual total element count
+  const recordsPerPage = 5; // Replace with your desired records per page
+  const [newOffset, setNewOffset] = useState(1);
+
+  const handlePageChange = (newPageNumber) => {
+    const newOffset = newPageNumber;
+    console.log(newPageNumber, "newPageNumber");
+    setPageNumber(newPageNumber);
+    // const newOffset = (newPageNumber - 1) * recordsPerPage ; // Calculate the new offset for the selected page
+    setNewOffset(newOffset);
+    // getLocationlist();
+  };
+  // console.log(pageNumber)
 
   function getAllTypeofLocation() {
-    CommonService.getAll(apiUrlsService.getAllTypeofLocation+"?deleted=false").then(
-      (response) => {console.log(response,"response")
+    CommonService.getAll(
+      apiUrlsService.getAllTypeofLocation +
+        "?deleted=false&offset=" +
+        newOffset +
+        "&limit=" +
+        recordsPerPage
+    ).then(
+      (response) => {
+        console.log(response, "response");
         if (response) {
-          console.log(response.data.content,"yudgfydg")
+          console.log(response.data.content, "yudgfydg");
           setTypeofLocation(response.data.content);
+          setTotalElements(response.data.totalElements);
+          setOffset(response.data.pageable.offset);
         }
       },
       (error) => {
@@ -48,9 +75,8 @@ const TypeofLocationtest = () => {
     getLocationType();
     if (id) {
       setTitle("Update");
-    
     }
-  }, []);
+  }, [newOffset]);
 
   const {
     register,
@@ -64,11 +90,10 @@ const TypeofLocationtest = () => {
 
   const [show, setShow] = useState(false);
 
-  
   const AddPopup = () => {
     // setPincode(""); // Reset pincode
-    setCityNameP("")
-    setStateNameP("")
+    setCityNameP("");
+    setStateNameP("");
     setTitle("Add"); // Set the form title to "Add"
     setId(""); // Clear the ID for adding
     setShow(true);
@@ -94,12 +119,10 @@ const TypeofLocationtest = () => {
 
   function getAllPincode() {
     CommonService.getAll(apiUrlsService.getAllPincode).then(
-      (response) => { 
-        // console.log(response, "here pincode")
+      (response) => {
+        console.log(response, "here pincode");
         if (response) {
-
-          setPincode(response.data);
-          
+          setPincode(response.data.content);
         }
       },
       (error) => {
@@ -109,19 +132,22 @@ const TypeofLocationtest = () => {
   }
 
   function getCityState(selectedPinCode) {
-    console.log(selectedPinCode,"trtrtr")
+    console.log(selectedPinCode, "trtrtr");
 
     if (selectedPinCode) {
-      CommonService.getAll(apiUrlsService.getPincodeById + selectedPinCode).then(
+      CommonService.getAll(
+        apiUrlsService.getPincodeById + selectedPinCode
+      ).then(
         (response) => {
-          console.log(response,"fafafa")
-          if (response && response.data && response.data.length > 0) {
-            setCityNameP(response.data[0].cityName);
-            setStateNameP(response.data[0].stateName);
+          console.log(response.data.length, "fafafa");
+          if (response && response.data) {
+            console.log(response, "response in getcityname");
+            setCityNameP(response.data.cityName);
+            setStateNameP(response.data.stateName);
             console.log(cityNameP, "cityNameP after update");
             console.log(stateNameP, "stateNameP after update");
-            setValue("cityName", response.data[0].cityName);
-            setValue("stateName", response.data[0].stateName);
+            setValue("cityName", response.data.cityName);
+            setValue("stateName", response.data.stateName);
           } else {
             setCityNameP(""); // Handle the case when no data is found
             setStateNameP("");
@@ -140,8 +166,8 @@ const TypeofLocationtest = () => {
 
   function getLocationType() {
     CommonService.getAll(apiUrlsService.getAllTypeofArea).then(
-      (response) => { 
-        console.log(response.data.content, "here setTypeOfArea")
+      (response) => {
+        console.log(response.data.content, "here setTypeOfArea");
         if (response) {
           setTypeOfArea(response.data.content);
         }
@@ -156,12 +182,12 @@ const TypeofLocationtest = () => {
 
     // Find the item to edit based on its id
     const itemToEdit = typeoflocation.find((item) => item.id === id);
-  
+
     if (itemToEdit) {
       setTitle("Edit");
       setId(id); // Set the ID for editing
       setShow(true); // Show the modal
-  
+
       // Set values for other fields as needed
       setValue("pinCode", itemToEdit.pinCode.id);
       setValue("cityName", itemToEdit.cityName);
@@ -171,41 +197,39 @@ const TypeofLocationtest = () => {
     }
   };
 
-
   const onSubmit = (newdata) => {
     // console.log(editData.id,"whilke updating")
-    console.log(newdata,"add data")
+    console.log(newdata, "add data");
     let area_id = "";
     let pin_id = "";
-    area_id = newdata["locationType"]
-    pin_id = newdata["pinCode"]
-    newdata["locationType"] = {"id":area_id}
-    newdata["pinCode"] = {"id":pin_id}
+    area_id = newdata["locationType"];
+    pin_id = newdata["pinCode"];
+    newdata["locationType"] = { id: area_id };
+    newdata["pinCode"] = { id: pin_id };
 
-    console.log(newdata,"after data")
+    console.log(newdata, "after data");
     if (!ids) {
-      
       CommonService.add(apiUrlsService.addTypeofLocation, newdata).then(
-        (response) => {  console.log(response.data,"response after adding")
+        (response) => {
+          console.log(response.data, "response after adding");
           if (response) {
-           
             setTypeofLocation([...typeoflocation, response.data]);
             swal("Success", " Added succesfully..!", "success");
             reset();
             handleClose();
-
+            getAllTypeofLocation();
             console.log(response.data, "mani");
           }
         },
-        (error) => {console.log("not able to add ")
+        (error) => {
+          console.log("not able to add ");
           if (error.response && error.response.status === 403) {
             // EventBus.dispatch("logout");
           }
         }
       );
     } else {
-        
-      console.log(newdata,"inside edit")
+      console.log(newdata, "inside edit");
       newdata.id = ids;
       CommonService.patch(
         apiUrlsService.updateTypeofLocation + ids,
@@ -218,14 +242,15 @@ const TypeofLocationtest = () => {
             );
             setTypeofLocation(updatedTypeoflocation);
             swal("Success", " Updated succesfully..!", "success");
-            
+
             handleClose();
             reset();
             getAllTypeofLocation();
           }
         },
         (error) => {
-          if (error.response && error.response.status === 403) {console.log("error")
+          if (error.response && error.response.status === 403) {
+            console.log("error");
             // EventBus.dispatch("logout");
           }
         }
@@ -234,14 +259,13 @@ const TypeofLocationtest = () => {
     reset();
   };
 
-  
   const handleClose = () => {
     setTitle("Add"); // Reset the form title
     setId(""); // Reset the ID
     setShow(false);
     reset(); // Reset the form values
   };
-  
+
   return (
     <>
       <div className="container-fluid pl-2 pr-2">
@@ -279,9 +303,7 @@ const TypeofLocationtest = () => {
                     className="ml-2 Addbutton"
                     title="Add  Checklist "
                     onClick={AddPopup}
-                    
                   >
-                    
                     ADD
                   </button>
 
@@ -307,31 +329,30 @@ const TypeofLocationtest = () => {
                           >
                             <div className="container">
                               <div className="row pt-1 mt-1">
-
-                              <div className="col-md-4 text-left">
+                                <div className="col-md-4 text-left">
                                   <label className="">
-                                   PinCode
+                                    PinCode
                                     <span className="text-danger">*</span>
                                   </label>
                                   <select
                                     className="accordiantext"
                                     {...register("pinCode", { required: true })}
-                                    onChange={(e) => { 
-                                        const selectedPinCode = e.target.value;
-                                        console.log(selectedPinCode,"reerre")
-                                        setValue("pinCode", selectedPinCode);
-                                        getCityState(selectedPinCode); // Call getCityState with the selected pin code
+                                    onChange={(e) => {
+                                      const selectedPinCode = e.target.value;
+                                      console.log(selectedPinCode, "reerre");
+                                      setValue("pinCode", selectedPinCode);
+                                      getCityState(selectedPinCode); // Call getCityState with the selected pin code
                                     }}
-                                    >
+                                  >
                                     <option value="">---Select----</option>
                                     {pincode &&
-                                        pincode.map((h, i) => (
+                                      pincode.map((h, i) => (
                                         <option key={i} value={h.id}>
-                                            {h.pinCode}
+                                          {h.pinCode}
                                         </option>
-                                        ))}
-                                    </select>
-                                   {/* {errors.pinCode && (
+                                      ))}
+                                  </select>
+                                  {/* {errors.pinCode && (
                                     <span className="text-danger">
                                       This is required
                                     </span>
@@ -344,15 +365,15 @@ const TypeofLocationtest = () => {
                                     <span className="text-danger">*</span>
                                   </label>
                                   <input
-                                        type="text"
-                                        placeholder=""
-                                        readOnly
-                                        className="accordiantext"
-                                        {...register("cityName", {
-                                            required: true,
-                                          })}
-                                        value={cityNameP}
-                                      />
+                                    type="text"
+                                    placeholder=""
+                                    readOnly
+                                    className="accordiantext"
+                                    {...register("cityName", {
+                                      required: true,
+                                    })}
+                                    value={cityNameP}
+                                  />
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1">
@@ -367,10 +388,10 @@ const TypeofLocationtest = () => {
                                     placeholder=""
                                     className="accordiantext"
                                     {...register("stateName", {
-                                        required: true,
-                                      })}
+                                      required: true,
+                                    })}
                                     value={stateNameP}
-                                    />
+                                  />
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1 ">
@@ -380,24 +401,29 @@ const TypeofLocationtest = () => {
                                   </label>
 
                                   <select
-                                className="accordiantext"
-                                {...register("locationType", { required: true })}
-                                // value={watch("typeOfArea")} // Get the selected value from the form
-                                onChange={(e) => {
-                                    const selectedTypeOfArea = e.target.value;
-                                    if (selectedTypeOfArea) {
-                                    setValue("locationType", selectedTypeOfArea); // Update the form value
-                                    }
-                                }}
-                                >
-                                <option value="">---Select----</option>
-                                {TypeofArea &&
-                                    TypeofArea.map((h, i) => (
-                                    <option key={i} value={h.id}>
-                                        {h.name}
-                                    </option>
-                                    ))}
-                                </select>
+                                    className="accordiantext"
+                                    {...register("locationType", {
+                                      required: true,
+                                    })}
+                                    // value={watch("typeOfArea")} // Get the selected value from the form
+                                    onChange={(e) => {
+                                      const selectedTypeOfArea = e.target.value;
+                                      if (selectedTypeOfArea) {
+                                        setValue(
+                                          "locationType",
+                                          selectedTypeOfArea
+                                        ); // Update the form value
+                                      }
+                                    }}
+                                  >
+                                    <option value="">---Select----</option>
+                                    {TypeofArea &&
+                                      TypeofArea.map((h, i) => (
+                                        <option key={i} value={h.id}>
+                                          {h.name}
+                                        </option>
+                                      ))}
+                                  </select>
                                 </div>
 
                                 <div className="col-md-4 text-left mt-1 ">
@@ -413,7 +439,7 @@ const TypeofLocationtest = () => {
                                     {...register("address", { required: true })}
                                     defaultValue={
                                       editData ? editData.address : ""
-                                    } 
+                                    }
                                     // Set initial value based on editData
                                   />
                                   {errors.address && (
@@ -459,9 +485,14 @@ const TypeofLocationtest = () => {
                         .slice()
                         .reverse()
                         .map((item, index) => {
+                          const sNo =
+                            pageNumber * recordsPerPage -
+                            recordsPerPage +
+                            index +
+                            1;
                           return (
                             <tr key={item.index}>
-                              <td>{index + 1}</td>
+                              <td>{sNo}</td>
                               <td>
                                 {" "}
                                 <Link>{item.pinCode.cityName}</Link>
@@ -489,14 +520,6 @@ const TypeofLocationtest = () => {
                                     <FaTimes className="pencil" />
                                   </button>
                                 </>
-
-                                {/* <button
-                          className="Mark-as-Inactive-checkbutton-blueScreen"
-                          title="Mark as Active"
-                        //   onClick={() => handleMarkAsActive(item.id)}
-                        >
-                          <FaCheck />
-                        </button> */}
                               </td>
                             </tr>
                           );
@@ -505,58 +528,25 @@ const TypeofLocationtest = () => {
                 </tbody>
               </table>
             </div>
-            <div className="col-md-12">
-              <div className="mt-3">
-                <h7>Showing 1 to 10 of 10 entries</h7>
-
-                <nav
-                  aria-label="Page navigation example"
-                  className=" float-right"
-                >
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Previous
-                      </a>
-                    </li>
-
-                    <li class="page-item active ">
-                      <a class="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-
-                    <li class="page-item ">
-                      <a class="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#">
-                        4
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        5
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+            <div className="row">
+              <div className="col-md-6">
+                <Pagination
+                  offset={offset}
+                  totalElements={totalElements}
+                  recordsPerPage={recordsPerPage}
+                  pageNumber={pageNumber}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+              <div className="col-md-6">
+              <h7 className="float-right">
+              Showing{" "}
+        {(newOffset - 1) * recordsPerPage + 1} to{" "}
+        {totalElements < newOffset * recordsPerPage
+          ? totalElements
+          : newOffset * recordsPerPage}{" "}
+        of {totalElements} entries
+                </h7>
               </div>
             </div>
           </div>

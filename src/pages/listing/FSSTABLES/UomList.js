@@ -20,9 +20,11 @@ const UOMList = () => {
   const [editData, setEditData] = useState([""]);
   const [ids, setId] = useState(""); // ID for editing
   const { id } = useParams();
+  const [uomtype ,  setUoMType] = useState();
+
+
   const [totalelements,setTotalElements] = useState("")
   const [offset, setOffset] = useState("")
-  const [uomtype ,  setUoMType] = useState();
 
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -31,19 +33,19 @@ const UOMList = () => {
   const [newOffset, setNewOffset] = useState(1);
   
   const handlePageChange = (newPageNumber) => {
+    const newOffset = (newPageNumber);
+    console.log(newPageNumber,"newPageNumber")
     setPageNumber(newPageNumber);
-    // const newOffset = (newPageNumber - 1) * recordsPerPage;
-    // Calculate the new offset for the selected page
-    setNewOffset(newPageNumber-1)
-  
-    // Make an API request to fetch data for the new page
-    getLocationlist();
+    // const newOffset = (newPageNumber - 1) * recordsPerPage ; // Calculate the new offset for the selected page
+    setNewOffset(newOffset);
+    //  getLocationlist();
   };
   // console.log(pageNumber)
 
+
   function getLocationlist() {
     
-    const url = apiUrlsService.getAllUomList +"?deleted=false"
+    const url = apiUrlsService.getAllUomList +"?deleted=false&offset="+newOffset+"&limit="+recordsPerPage
     // console.log(url)
     CommonService.getAll(url).then(
       (response) => { //console.log(response.data.pageable.offset, "mani")
@@ -76,7 +78,7 @@ const UOMList = () => {
       setTitle("Update");
       getTypeofLocationDetails(id);
     }
-  }, []);
+  }, [newOffset]);
 
   const {
     register,
@@ -157,7 +159,7 @@ const UOMList = () => {
             reset();
             handleClose();
             setPageNumber(1); // Reset page number to 1
-            getUoMType();
+            getLocationlist();
             // console.log(response.data, "mani");
           }
         },
@@ -209,6 +211,7 @@ const UOMList = () => {
       setId(itemToEdit.id); // Set the ID for editing
       setShow(true); // Show the modal
       reset();
+      setValue("uomType", itemToEdit.uomType.id);
     }
   };
 
@@ -424,7 +427,8 @@ const UOMList = () => {
                               </td>
                               <td>{item.standardUnitConversionValue}</td>
                               <td>{item.description}</td>
-                              <td>{item.uomType.name}</td>
+                              {/* <td>{item.uomType.name}</td> */}
+                      <td>{item.uomType ? item.uomType.name : ""}</td>
                              
                               <td>
                                 <>
@@ -444,14 +448,6 @@ const UOMList = () => {
                                     <FaTimes className="pencil" />
                                   </button>
                                 </>
-
-                                {/* <button
-                          className="Mark-as-Inactive-checkbutton-blueScreen"
-                          title="Mark as Active"
-                        //   onClick={() => handleMarkAsActive(item.id)}
-                        >
-                          <FaCheck />
-                        </button> */}
                               </td>
                             </tr>
                           );
@@ -460,67 +456,13 @@ const UOMList = () => {
                 </tbody>
               </table>
             </div>
-            {/* <div className="col-md-12">
-              <div className="mt-3">
-                <h7>Showing 1 to 10 of 10 entries</h7>
-
-                <nav
-                  aria-label="Page navigation example"
-                  className=" float-right"
-                >
-                  <ul class="pagination">
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Previous
-                      </a>
-                    </li>
-
-                    <li class="page-item active ">
-                      <a class="page-link" href="#">
-                        1
-                      </a>
-                    </li>
-
-                    <li class="page-item ">
-                      <a class="page-link" href="#">
-                        2
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        3
-                      </a>
-                    </li>
-
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#">
-                        4
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        5
-                      </a>
-                    </li>
-
-                    <li class="page-item">
-                      <a class="page-link" href="#">
-                        Next
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </div> */}
             <Pagination
               
-               offset={offset}
-               totalElements={totalElements}
-               recordsPerPage={recordsPerPage}
-               pageNumber={pageNumber}
-               onPageChange={handlePageChange}
+              offset={offset}
+              totalElements={totalElements}
+              recordsPerPage={recordsPerPage}
+              pageNumber={pageNumber}
+              onPageChange={handlePageChange}
             />
           </div>
         </div>

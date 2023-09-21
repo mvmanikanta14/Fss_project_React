@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import commonService from '../../../services/common.service';
-import apiUrlsService from '../../../services/apiUrls.service';
-import { Link, useParams } from 'react-router-dom';
-import { FaHome, FaArrowLeft, FaPencilAlt, FaTimes } from 'react-icons/fa';
-import swal from 'sweetalert';
-import { useForm } from 'react-hook-form';
-import { Modal } from 'react-bootstrap';
+import React, { useEffect, useState } from "react";
+import commonService from "../../../services/common.service";
+import apiUrlsService from "../../../services/apiUrls.service";
+import { Link, useParams } from "react-router-dom";
+import { FaHome, FaArrowLeft, FaPencilAlt, FaTimes } from "react-icons/fa";
+import swal from "sweetalert";
+import { useForm } from "react-hook-form";
+import { Modal } from "react-bootstrap";
+import axios from "axios";
 
 const BoMDetails = () => {
   const [bomdetails, setBoMDetails] = useState([]);
@@ -15,24 +16,54 @@ const BoMDetails = () => {
   const { id } = useParams();
   const [options, setOptions] = useState([]);
   const [productOptions, setProductOptions] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState('');
-  const [productMaterials, setProductMaterials] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState("");
+  // const [productMaterials, setProductMaterials] = useState([]);
 
-  const handleProductChange = (e) => {
-    const selectedProductId = e.target.value;
-    setSelectedProduct(selectedProductId);
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [states, setStates] = useState([]);
+  const [cities, setCities] = useState([]);
 
-    // Fetch product materials based on the selected product ID from an API endpoint
-    if (selectedProductId) {
-      // Replace 'api/get-product-materials' with your actual API endpoint
-      fetch(`/anyfin/v1/product=${selectedProductId}`)
-        .then((response) => response.json())
-        .then((data) => setProductMaterials(data))
-        .catch((error) => console.error('Error fetching product materials:', error));
-    } else {
-      // Clear product materials when no product is selected
-      setProductMaterials([]);
+  useEffect(() => {
+    // Fetch states from JSONPlaceholder
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => {
+        const uniqueStates = [
+          ...new Set(response.data.map((post) => post.title)),
+        ];
+        setStates(uniqueStates);
+      })
+      .catch((error) => {
+        console.error("Error fetching states:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (selectedState) {
+      // Fetch cities based on the selected state
+      axios
+        .get(
+          `https://jsonplaceholder.typicode.com/posts?title=${selectedState}`
+        )
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
     }
+  }, [selectedState]);
+
+  const handleStateChange = (e) => {
+    const state = e.target.value;
+    setSelectedState(state);
+    setSelectedCity("");
+  };
+
+  const handleCityChange = (e) => {
+    const city = e.target.value;
+    setSelectedCity(city);
   };
 
   const {
@@ -67,21 +98,10 @@ const BoMDetails = () => {
       });
   }
 
-  function getProductFieldsOptions() {
-    commonService
-      .getAll(apiUrlsService.getProductfieldData)
-      .then((res) => {
-        setProductOptions(res.data.content);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   useEffect(() => {
     getAllBomDetails();
     getUomFieldsOptions();
-    getProductFieldsOptions();
+    // getAllProduct();
     if (id) {
       setTitle("Edit");
     }
@@ -134,8 +154,6 @@ const BoMDetails = () => {
     setShow(true);
     setTitle("Add");
   };
-
-
 
   return (
     <>
@@ -200,10 +218,7 @@ const BoMDetails = () => {
                           >
                             <div className="container">
                               <div className="row pt-1 mt-1">
-
-
-
-                                <div className="col-md-4 text-left mt-1 ">
+                                {/* <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
                                     Select Product
                                     <span className="text-danger">*</span>
@@ -222,11 +237,43 @@ const BoMDetails = () => {
                                         </option>
                                       ))}
                                   </select>
+                                </div> */}
+
+                                <div>
+                                  <label>Select a State:</label>
+                                  <select
+                                    onChange={handleStateChange}
+                                    value={selectedState}
+                                  >
+                                    <option value="">
+                                      -- Select a State --
+                                    </option>
+                                    {states.map((stateName, index) => (
+                                      <option key={index} value={stateName}>
+                                        {stateName}
+                                      </option>
+                                    ))}
+                                  </select>
+                                  <label>Select a City:</label>
+                                  <select
+                                    onChange={handleCityChange}
+                                    value={selectedCity}
+                                  >
+                                    <option value="">
+                                      -- Select a City --
+                                    </option>
+                                    {cities.map((cityData) => (
+                                      <option
+                                        key={cityData.id}
+                                        value={cityData.title}
+                                      >
+                                        {cityData.title}
+                                      </option>
+                                    ))}
+                                  </select>
                                 </div>
 
-
-
-                                <div className="col-md-4 text-left mt-1 ">
+                                {/* <div className="col-md-4 text-left mt-1 ">
                                   <label className="">
                                     Select Product Materials
                                     <span className="text-danger">*</span>
@@ -244,8 +291,7 @@ const BoMDetails = () => {
                                         </option>
                                       ))}
                                   </select>
-                                </div>
-
+                                </div> */}
 
                                 <div className="col-md-2 text-left mt-1 ">
                                   <label className="">
@@ -259,17 +305,19 @@ const BoMDetails = () => {
                                     {...register("quantity", {
                                       required: true,
                                     })}
-                                    defaultValue={editData ? editData.quantity : ""} // Set initial value based on editData
+                                    defaultValue={
+                                      editData ? editData.quantity : ""
+                                    } // Set initial value based on editData
                                   />
                                   {errors.quantity && (
-                                    <span className="text-danger">This is required</span>
+                                    <span className="text-danger">
+                                      This is required
+                                    </span>
                                   )}
                                 </div>
 
                                 <div className="col-md-2 text-left mt-1 ">
-                                  <label className="">
-                                    &nbsp;
-                                  </label>
+                                  <label className="">&nbsp;</label>
                                   <select
                                     className="accordiantext"
                                     // {...register("productName", { required: true })}
@@ -277,7 +325,10 @@ const BoMDetails = () => {
                                     onChange={(e) => {
                                       const selectquantity = e.target.value;
                                       if (selectquantity) {
-                                        setValue("locationType", selectquantity); // Update the form value
+                                        setValue(
+                                          "locationType",
+                                          selectquantity
+                                        ); // Update the form value
                                       }
                                     }}
                                   >
@@ -290,12 +341,6 @@ const BoMDetails = () => {
                                       ))}
                                   </select>
                                 </div>
-
-
-
-
-
-
 
                                 <div className="col-md-12">
                                   <button className="float-right mt-1 text-white accordianbutton">
@@ -326,46 +371,57 @@ const BoMDetails = () => {
                   </tr>
                 </thead>
                 <tbody className="table-bordered tbclass">
-                  {bomdetails ? bomdetails.slice().reverse().map((item, index) => {
-                    return (
-                      <tr key={item.index}>
-                        <td>{index + 1}</td>
-                        <td>
-                          {item.product.productType.typeId}
-                        </td>
-                        <td title='product Table'>{item.product.productName}
-                          <tr>
-                            {/* <td>{item.uom.name}</td> */}
-                          </tr>
-                        </td>
-                        <td><span title='quantity' className='text-success'>{item.quantity}</span> &nbsp;&nbsp;&nbsp;<span title='UoM Table'>{item.uom.name}</span> </td>
-                        <td>
-                          <>
-                            <button
-                              className="Edit-blueScreen"
-                              title="Edit"
-                              onClick={() => handleShowEdit(item.id)}
-                            >
-                              <FaPencilAlt className="pencil" />
-                            </button>
-                            &nbsp;
-                            <button
-                              className="delete-greenScreen"
-                              title="Delete"
-                            // onClick={() => handleRemove(item.id)}
-                            >
-                              <FaTimes className="pencil" />
-                            </button>
-                          </></td>
-                      </tr>
-                    )
-                  }) : ""}
+                  {bomdetails
+                    ? bomdetails
+                        .slice()
+                        .reverse()
+                        .map((item, index) => {
+                          return (
+                            <tr key={item.index}>
+                              <td>{index + 1}</td>
+                              <td>{item.product.productType.typeId}</td>
+                              <td title="product Table">
+                                {item.product.productName}
+                                <tr>{/* <td>{item.uom.name}</td> */}</tr>
+                              </td>
+                              <td>
+                                <span title="quantity" className="text-success">
+                                  {item.quantity}
+                                </span>{" "}
+                                &nbsp;&nbsp;&nbsp;
+                                <span title="UoM Table">
+                                  {item.uom.name}
+                                </span>{" "}
+                              </td>
+                              <td>
+                                <>
+                                  <button
+                                    className="Edit-blueScreen"
+                                    title="Edit"
+                                    onClick={() => handleShowEdit(item.id)}
+                                  >
+                                    <FaPencilAlt className="pencil" />
+                                  </button>
+                                  &nbsp;
+                                  <button
+                                    className="delete-greenScreen"
+                                    title="Delete"
+                                    // onClick={() => handleRemove(item.id)}
+                                  >
+                                    <FaTimes className="pencil" />
+                                  </button>
+                                </>
+                              </td>
+                            </tr>
+                          );
+                        })
+                    : ""}
                 </tbody>
               </table>
             </div>
             <div className="col-md-12">
               <div className="mt-3">
-                <h7>Showing 1 to 10 of  10 entries</h7>
+                <h7>Showing 1 to 10 of 10 entries</h7>
 
                 <nav
                   aria-label="Page navigation example"
@@ -421,7 +477,7 @@ const BoMDetails = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default BoMDetails
+export default BoMDetails;
