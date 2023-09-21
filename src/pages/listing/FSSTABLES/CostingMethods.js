@@ -67,7 +67,8 @@ const CostingMethods = () => {
     }
     else {
       data.id = editData.id;
-      commonService.patch(apiUrlsService.updateCostingmethods + editData.id, data).then(
+      commonService.patch(apiUrlsService.updateCostingmethods + editData.id, data)
+      .then(
         (response) => {
           if (response) {
             const updatedCostingmethods = costingmethodsdata.map((item) =>
@@ -94,7 +95,7 @@ const CostingMethods = () => {
     console.log(itemToEdit, "this is the id for edit")
     setTitle("Edit");
     setId(itemToEdit.id);
-    console.log(ids);
+    // console.log(ids);
     setShow(true);
     reset();
   }

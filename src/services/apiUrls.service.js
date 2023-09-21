@@ -3,8 +3,8 @@ class ApiUrlService {
   getAllTypeofLocation = "/anyfin/v1/location";
   getTypeofLocationById = "/locations/update/";
   addTypeofLocation = "/anyfin/v1/location";
-  getAllPincode ="/anyfin/v1/pin"
-  getPincodeById ="/anyfin/v1/pin/" 
+  getAllPincode ="/anyfin/v1/pincode/"
+  getPincodeById ="/anyfin/v1/pincode/"
   getAllTypeofArea = "/anyfin/v1/locationtype/"
   updateTypeofLocation = "/anyfin/v1/location/";
  
@@ -28,7 +28,7 @@ class ApiUrlService {
  
 
   //UoM Types
-
+  getProductfieldData
   getAllUoMType = "/anyfin/v1/uomtype/"
 
 
@@ -40,7 +40,7 @@ class ApiUrlService {
 
   getAllBomDetails="/anyfin/v1/bom"
 
-  getUomfieldData="/anyfin/v1/uomtype"// Uom table (getting Uom Field data from Uom table to (Bom Table-->Add-->Product Field))
+  getUomfieldData="/anyfin/v1/unitsofmeasurements"// Uom table (getting Uom Field data from Uom table to (Bom Table-->Add-->Product Field))
 
   getProductfieldData="/anyfin/v1/product"// Product table (getting product Field data from product table to (Bom Table-->Add-->Product Field))
 
@@ -69,7 +69,7 @@ class ApiUrlService {
   addTypeOfProducts="/anyfin/v1/producttype"
 
   updateTypeofproducts="/anyfin/v1/producttype/"
-
+  deletetypeofProducts="/anyfin/v1/producttype/"
  
  
 

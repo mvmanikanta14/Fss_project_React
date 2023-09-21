@@ -24,7 +24,7 @@ const TypeOfProducts = () => {
   });
 
   function getAllTypeofProducts() {
-    commonService.getAll(apiUrlsService.getAllProductTypes)
+    commonService.getAll(apiUrlsService.getAllProductTypes+ "?deleted=false")
       .then((res) => {
         setTypeofProducts(res.data.content)
       })
@@ -39,10 +39,11 @@ const TypeOfProducts = () => {
     }
   }, [])
   const onSubmit = (data) => {
+    // console.log(ids);
     if (!ids) {
       commonService.add(apiUrlsService.addTypeOfProducts, data)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           setTypeofProducts([...typeofproducts, res.data])
           swal("Success")
           reset();
@@ -52,21 +53,23 @@ const TypeOfProducts = () => {
           console.log(err);
         })
     } else {
-      data.id = editData.id;
-      // console.log();
-      commonService.patch(apiUrlsService.updateTypeofproducts + editData.id, data)
+      // const updatedData = { ...data, id: editData.id };
+      commonService
+        .patch(apiUrlsService.updateTypeofproducts + editData.id, data)
         .then((res) => {
+          console.log(res.data);
           const updatedTypeofproducts = typeofproducts.map((item) =>
             item.id === editData.id ? res.data : item
           );
           setTypeofProducts(updatedTypeofproducts);
-          swal("Success", "Assignment Updated succesfully..!", "success");
-          handleCloseshow();
+          swal("Success", "Resource updated successfully.", "success");
           reset();
+          handleCloseshow();
         })
-        .catch((err => {
-          console.log(err);
-        }))
+        .catch((err) => {
+          console.error("Error updating resource:", err);
+          // Handle the error, e.g., show an error message to the user
+        });
     }
   }
   const handleShowEdit = (id) => {
@@ -76,8 +79,29 @@ const TypeOfProducts = () => {
     setValue('name', itemToEdit.name); // Use setValue to pre-fill the form field
     setValue('description', itemToEdit.description); // Use setValue to pre-fill the form field
     settitle('Edit'); // Set title for the modal
+    setId(itemToEdit.id);//here the id is connecting to id's it is go to edit one
     setShow(true); // Show the modal
   }
+
+  const handleRemove = (id) => {
+    const data = { deleted: "true" };
+    const shouldRemove = window.confirm("Are You Sure?");
+    if (shouldRemove) {
+      commonService
+        .patch(apiUrlsService.deletetypeofProducts + id, data)
+        .then((res) => {
+          console.log(res.data);
+          // Update your state properly here
+          setTypeofProducts(res.data);
+          swal("Success", "Type of products Deleted Successfully");
+          getAllTypeofProducts()
+        })
+        .catch((error) => {
+          console.error(error);
+          // Handle error appropriately
+        });
+    }
+  };
 
   const [show, setShow] = useState(false)
   const handleCloseshow = () => {
@@ -131,7 +155,6 @@ const TypeOfProducts = () => {
                   >
                     ADD
                   </button>
-
                   <div className="model_box">
                     <Modal
                       show={show}
@@ -143,7 +166,7 @@ const TypeOfProducts = () => {
                       className="modalcustomise"
                     >
                       <Modal.Header closeButton className="border-0">
-                        <h6 className="mb-1 mt-2">Location List</h6>
+                        <h6 className="mb-1 mt-2">{title === "Add" ? "Add Type Of Product" : "Edit Type Of Product"}</h6>
                       </Modal.Header>
 
                       <Modal.Body className="custom-modal-body">
@@ -156,8 +179,7 @@ const TypeOfProducts = () => {
                               <div className="row pt-1 mt-1">
                                 <div className="col-md-4 text-left mt-1">
                                   <label className="">
-                                    Name{" "}
-                                    <span className="text-danger">*</span>
+                                    Name <span className="text-danger">*</span>
                                   </label>
                                   <input
                                     type="text"
@@ -172,22 +194,26 @@ const TypeOfProducts = () => {
                                     <span className="text-danger">This is required</span>
                                   )}
                                 </div>
-                                <div className="col-md-12 text-left mt-1 ">
+                                <div className="col-md-12 text-left mt-1">
                                   <label className="">
-                                    Description{" "}
-                                    <span className="text-danger">*</span>
+                                    Description <span className="text-danger">*</span>
                                   </label>
-                                  <textarea className='accordiantext' {...register("description", {
-                                    required: true,
-                                  })}
-                                    defaultValue={editData ? editData.description : ""} // Set initial value based on editData 
+                                  <textarea
+                                    className="accordiantext"
+                                    {...register("description", {
+                                      required: true,
+                                    })}
+                                    defaultValue={editData ? editData.description : ""} // Set initial value based on editData
                                   ></textarea>
                                   {errors.description && (
                                     <span className="text-danger">This is required</span>
                                   )}
                                 </div>
                                 <div className="col-md-12">
-                                  <button className="float-right mt-1 text-white accordianbutton">
+                                  <button
+                                    className="float-right mt-1 text-white accordianbutton"
+                                    type="submit"
+                                  >
                                     {title}
                                   </button>
                                 </div>
@@ -216,7 +242,7 @@ const TypeOfProducts = () => {
                   </tr>
                 </thead>
                 <tbody className="table-bordered tbclass">
-                  {typeofproducts ? typeofproducts.slice().reverse().map((item, index) => {
+                  {Array.isArray(typeofproducts) ? typeofproducts.slice().reverse().map((item, index) => {
                     return (
                       <tr key={item.index}>
                         <td>{index + 1}</td>
@@ -239,7 +265,7 @@ const TypeOfProducts = () => {
                             <button
                               className="delete-greenScreen"
                               title="Delete"
-                            // onClick={() => handleRemove(item.id)}
+                             onClick={() => handleRemove(item.id)}
                             >
                               <FaTimes className="pencil" />
                             </button>
