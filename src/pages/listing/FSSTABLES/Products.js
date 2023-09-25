@@ -178,15 +178,15 @@ const Products = () => {
 
     productType_id = data["productType"];
     costingType_id = data["costing"];
-    hnsSacType_id = data["hnsSac"];
+    hnsSacType_id = hsnid;
     uomType_id = data["uomType"];
-
+    console.log("hnsSacType_id:", hnsSacType_id);
     data["productType"] = { id: productType_id };
     data["costing"] = { id: costingType_id };
     data["hnsSac"] = { id: hnsSacType_id };
-    data["uomType"] = { id: uomType_id };
+    data["unitsOfMeasurements"] = { id: uomType_id };
 
-    if (!editData.id) {
+    if (!ids) {
       CommonService.add(apiUrlsService.addProducts, data).then(
         (response) => {
           if (response) {
@@ -251,7 +251,7 @@ const Products = () => {
       // Set values for other fields as needed
       setValue("hnsSac", itemToEdit.hnsSac.id);
       setValue("productName", itemToEdit.productName);
-      setValue("uomType", itemToEdit.uomType.id);
+      setValue("uomType", itemToEdit.unitsOfMeasurements.id);
       setValue("productType", itemToEdit.productType.id);
       setValue("costing", itemToEdit.costing.id);
     }
@@ -267,20 +267,23 @@ const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
   // const [selectedHsnSac, setSelectedHsnSac] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [hsnid, sethsnid] = useState([]);
+
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearchDropdown, setShowSearchDropdown] = useState(false);
 
   const [selectedHsnSac, setSelectedHsnSac] = useState("");
-  const handleSelectHsnSac = (hsnOrSac) => {
-    console.log(id)
+  const handleSelectHsnSac = (hsnOrSac,hsn_id) => {
+    console.log(hsnOrSac,"hsnOrSachsnOrSac")
     setSelectedHsnSac(hsnOrSac);
+    sethsnid(hsn_id)
     setShowSearchDropdown(false);
   };
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (searchTerm !== "") {
-      const apiUrl = apiUrlsService.getAllhsnSac + "?description=" + searchTerm;
+      const apiUrl = apiUrlsService.getAllhsnSac + "?globalSearch=" + searchTerm;
 
       CommonService.getAll(apiUrl).then((response) => {
         if (response) {
@@ -484,7 +487,7 @@ const Products = () => {
                                               key={i}
                                               onClick={() =>
                                                 handleSelectHsnSac(
-                                                  result.hsnOrSac
+                                                  result.hsnOrSac,result.id
                                                 )
                                               }
                                               value = {result.id}
@@ -544,7 +547,7 @@ const Products = () => {
                     <th scope="col">Product Name</th>
                     <th scope="col">SAC/HSN</th>
                     <th scope="col">Product Type</th>
-                    <th scope="col">Uom</th>
+                    <th scope="col">Units Of Measurements</th>
                     <th scope="col">Costing Type</th>
 
                     <th>Action</th>
@@ -564,7 +567,7 @@ const Products = () => {
                               <td>
                                 {item.productType ? item.productType.name : ""}
                               </td>
-                              <td>{item.uomType ? item.uomType.name : ""}</td>
+                              <td>{item.unitsOfMeasurements ? item.unitsOfMeasurements.name : ""}</td>
                               <td>{item.costing ? item.costing.name : ""}</td>
                               <td>
                                 <>

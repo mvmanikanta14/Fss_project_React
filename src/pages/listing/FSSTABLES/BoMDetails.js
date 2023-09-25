@@ -21,42 +21,59 @@ const BoMDetails = () => {
 
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
-  const [states, setStates] = useState([]);
-  const [cities, setCities] = useState([]);
+  const [states, setProducts] = useState([]);
+  const [productName, setProductName] = useState([]);
+  const [productId, setProductId] = useState([]);
 
-  useEffect(() => {
-    // Fetch states from JSONPlaceholder
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => {
-        const uniqueStates = [
-          ...new Set(response.data.map((post) => post.title)),
-        ];
-        setStates(uniqueStates);
-      })
-      .catch((error) => {
-        console.error("Error fetching states:", error);
-      });
-  }, []);
 
-  useEffect(() => {
-    if (selectedState) {
-      // Fetch cities based on the selected state
-      axios
-        .get(
-          `https://jsonplaceholder.typicode.com/posts?title=${selectedState}`
-        )
-        .then((response) => {
-          setCities(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching cities:", error);
-        });
-    }
-  }, [selectedState]);
+  function getAllProduct() {
+    commonService.getAll(apiUrlsService.getAllProducts + "?deleted=false").then(
+      (response) => {
+        if (response) {
+          setProducts(response.data.content);
+        }
+      },
+      (error) => {
+        // Handle error
+      }
+    );
+  }
+
+  function getAllproductName(selectedproduct) {
+    console.log(selectedproduct,"productName")
+    commonService.getAll(apiUrlsService.getAllProducts + "?deleted=false&productType="+selectedproduct).then(
+      (response) => {
+        if (response) {
+          console.log(response,"response in pn")
+          setProductName(response.data.content);
+          // setProductId(response.data.content[0].productType.id)
+        }
+      },
+      (error) => {
+        // Handle error
+      }
+    );
+  }
+
+  // useEffect(() => {
+  //   if (selectedState) {
+  //     // Fetch cities based on the selected state
+  //     axios
+  //       .get(
+  //         `https://jsonplaceholder.typicode.com/posts?title=${selectedState}`
+  //       )
+  //       .then((response) => {
+  //         setCities(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error fetching cities:", error);
+  //       });
+  //   }
+  // }, [selectedState]);
 
   const handleStateChange = (e) => {
     const state = e.target.value;
+    console.log(selectedState,"selectedState")
     setSelectedState(state);
     setSelectedCity("");
   };
@@ -101,14 +118,27 @@ const BoMDetails = () => {
   useEffect(() => {
     getAllBomDetails();
     getUomFieldsOptions();
-    // getAllProduct();
+    getAllProduct();
     if (id) {
       setTitle("Edit");
     }
   }, [id]);
 
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(data,"data")
+    console.log(productId,"productId");
+
+    
+    let uom_id ="";
+    let p_id = "";
+    p_id = data ["product"]
+    uom_id = data ["uom"]
+    
+
+    data["product"] = { id: p_id };
+    
+    data["uom"] = {id : uom_id};
+    console.log(data," after data")
     if (!ids) {
       commonService
         .add(apiUrlsService.addBoMDetails, data)
@@ -118,6 +148,7 @@ const BoMDetails = () => {
           handleCloseShow();
           swal("Success");
           reset();
+          getAllBomDetails();
         })
         .catch((err) => {
           console.log(err);
@@ -138,6 +169,8 @@ const BoMDetails = () => {
           console.log(err);
         });
     }
+    
+    
   };
 
   const handleShowEdit = (id) => {
@@ -242,32 +275,48 @@ const BoMDetails = () => {
                                 <div>
                                   <label>Select a State:</label>
                                   <select
-                                    onChange={handleStateChange}
-                                    value={selectedState}
+                                    className="accordiantext"
+                                    {...register("product", { required: true })}
+                                    onChange={(e) => {
+                                      const selectedproduct = e.target.value;
+                                      console.log(selectedproduct, "reerre");
+                                      setValue("product", selectedproduct);
+                                      getAllproductName(selectedproduct); // Call getCityState with the selected pin code
+                                    }}
                                   >
                                     <option value="">
                                       -- Select a State --
                                     </option>
-                                    {states.map((stateName, index) => (
-                                      <option key={index} value={stateName}>
-                                        {stateName}
-                                      </option>
-                                    ))}
+                                    {states &&
+                                      states.map((h, i) => (
+                                        <option key={i} value={h.productType.name}>
+                                          {h.productType.name}
+                                        </option>
+                                      ))}
                                   </select>
+                                  </div>
+                                  <div>
                                   <label>Select a City:</label>
                                   <select
-                                    onChange={handleCityChange}
-                                    value={selectedCity}
+                                  className="accordiantext"
+                                  {...register("product", { required: true })}
+                                  onChange={(e) => {
+                                    const selectedproduct = e.target.value;
+                                    // console.log(selectedproduct, "reerre");
+                                    // setValue("productName", selectedproduct);
+                                    setProductId(selectedproduct); // Call getCityState with the selected pin code
+                                  }}
+                                   
                                   >
                                     <option value="">
                                       -- Select a City --
                                     </option>
-                                    {cities.map((cityData) => (
+                                    {productName.map((cityData) => (
                                       <option
                                         key={cityData.id}
-                                        value={cityData.title}
+                                        value={cityData.id}
                                       >
-                                        {cityData.title}
+                                        {cityData.productName}
                                       </option>
                                     ))}
                                   </select>
@@ -317,20 +366,12 @@ const BoMDetails = () => {
                                 </div>
 
                                 <div className="col-md-2 text-left mt-1 ">
-                                  <label className="">&nbsp;</label>
+                                  <label className=""> Measurement</label>
                                   <select
                                     className="accordiantext"
-                                    // {...register("productName", { required: true })}
-                                    // value={watch("typeOfArea")} // Get the selected value from the form
-                                    onChange={(e) => {
-                                      const selectquantity = e.target.value;
-                                      if (selectquantity) {
-                                        setValue(
-                                          "locationType",
-                                          selectquantity
-                                        ); // Update the form value
-                                      }
-                                    }}
+                                    {...register("uom", { required: true })}
+                                  
+                                  
                                   >
                                     <option value="">---Select----</option>
                                     {options &&
@@ -379,7 +420,9 @@ const BoMDetails = () => {
                           return (
                             <tr key={item.index}>
                               <td>{index + 1}</td>
-                              <td>{item.product.productType.typeId}</td>
+                              {/* <td>{item.product.productType.typeId}</td> */}
+                              <td>{item.product.productType ? item.product.productType.typeId : ""}</td>
+
                               <td title="product Table">
                                 {item.product.productName}
                                 <tr>{/* <td>{item.uom.name}</td> */}</tr>
