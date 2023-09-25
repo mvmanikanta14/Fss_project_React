@@ -42,7 +42,7 @@ class ApiUrlService {
 
   getUomfieldData="/anyfin/v1/unitsofmeasurements"// Uom table (getting Uom Field data from Uom table to (Bom Table-->Add-->Product Field))
 
-  getProductfieldData="/anyfin/v1/product"// Product table (getting product Field data from product table to (Bom Table-->Add-->Product Field))
+  // getProductfieldData="/anyfin/v1/product" === getAllProducts// Product table (getting product Field data from product table to (Bom Table-->Add-->Product Field))
 
   addBoMDetails="/anyfin/v1/bom"
 

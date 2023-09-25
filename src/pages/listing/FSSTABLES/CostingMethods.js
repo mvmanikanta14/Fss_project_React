@@ -68,24 +68,24 @@ const CostingMethods = () => {
     else {
       data.id = editData.id;
       commonService.patch(apiUrlsService.updateCostingmethods + editData.id, data)
-      .then(
-        (response) => {
-          if (response) {
-            const updatedCostingmethods = costingmethodsdata.map((item) =>
-              item.id === editData.id ? response.data : item
-            );
-            setCostingMethodsData(updatedCostingmethods);
-            swal("Success", "Assignment Updated succesfully..!", "success");
-            handleCloseShow();
-            reset();
+        .then(
+          (response) => {
+            if (response) {
+              const updatedCostingmethods = costingmethodsdata.map((item) =>
+                item.id === editData.id ? response.data : item
+              );
+              setCostingMethodsData(updatedCostingmethods);
+              swal("Success", "Assignment Updated succesfully..!", "success");
+              handleCloseShow();
+              reset();
+            }
+          },
+          (error) => {
+            if (error.response && error.response.status === 403) {
+              // EventBus.dispatch("logout");
+            }
           }
-        },
-        (error) => {
-          if (error.response && error.response.status === 403) {
-            // EventBus.dispatch("logout");
-          }
-        }
-      );
+        );
     }
   }
 
@@ -121,8 +121,7 @@ const CostingMethods = () => {
   };
 
   const [Show, setShow] = useState(false)
-  const handleCloseShow = () => 
-  {
+  const handleCloseShow = () => {
     setEditData(null); // Reset editData
     setId(""); // Reset the ID
     setShow(false)
@@ -168,7 +167,7 @@ const CostingMethods = () => {
                     type="button"
                     className="ml-2 Addbutton"
                     title="Add  Checklist "
-                    onClick={()=>handleShow()}
+                    onClick={() => handleShow()}
                   >
                     ADD
                   </button>
@@ -255,7 +254,7 @@ const CostingMethods = () => {
                   </tr>
                 </thead>
                 <tbody className="table-bordered tbclass">
-                 
+
                   {Array.isArray(costingmethodsdata) ? costingmethodsdata.slice().reverse().map((item, index) => {
                     return (
                       <tr key={item.index}>
@@ -291,28 +290,56 @@ const CostingMethods = () => {
             </div>
             <div className="col-md-12">
               <div className="mt-3">
-                {/* <h7>Showing {startIndex+1} to {endIndex} of {costingmethodsdata.length} entries</h7> */}
-                {/* <nav aria-label="Page navigation example" className="float-right">
-                  <ul className="pagination">
-                    <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-                      <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
+                <h7>Showing 1 to 10 of 10 entries</h7>
+
+                <nav
+                  aria-label="Page navigation example"
+                  className=" float-right"
+                >
+                  <ul class="pagination">
+                    <li class="page-item">
+                      <a class="page-link" href="#">
                         Previous
-                      </button>
+                      </a>
                     </li>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                      <li key={index} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
-                        <button className="page-link" onClick={() => handlePageChange(index + 1)}>
-                          {index + 1}
-                        </button>
-                      </li>
-                    ))}
-                    <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-                      <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+
+                    <li class="page-item active ">
+                      <a class="page-link" href="#">
+                        1
+                      </a>
+                    </li>
+
+                    <li class="page-item ">
+                      <a class="page-link" href="#">
+                        2
+                      </a>
+                    </li>
+
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        3
+                      </a>
+                    </li>
+
+                    <li class="page-item disabled">
+                      <a class="page-link" href="#">
+                        4
+                      </a>
+                    </li>
+
+                    <li class="page-item">
+                      <a class="page-link" href="#">
+                        5
+                      </a>
+                    </li>
+
+                    <li class="page-item">
+                      <a class="page-link" href="#">
                         Next
-                      </button>
+                      </a>
                     </li>
                   </ul>
-                </nav> */}
+                </nav>
               </div>
             </div>
           </div>

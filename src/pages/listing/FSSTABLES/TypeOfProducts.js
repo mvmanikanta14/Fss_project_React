@@ -24,7 +24,7 @@ const TypeOfProducts = () => {
   });
 
   function getAllTypeofProducts() {
-    commonService.getAll(apiUrlsService.getAllProductTypes+ "?deleted=false")
+    commonService.getAll(apiUrlsService.getAllProductTypes + "?deleted=false")
       .then((res) => {
         setTypeofProducts(res.data.content)
       })
@@ -265,7 +265,7 @@ const TypeOfProducts = () => {
                             <button
                               className="delete-greenScreen"
                               title="Delete"
-                             onClick={() => handleRemove(item.id)}
+                              onClick={() => handleRemove(item.id)}
                             >
                               <FaTimes className="pencil" />
                             </button>
@@ -279,7 +279,7 @@ const TypeOfProducts = () => {
             <div className="col-md-12">
               <div className="mt-3">
                 <h7>Showing 1 to 10 of 10 entries</h7>
-                {/* <nav
+                <nav
                   aria-label="Page navigation example"
                   className=" float-right"
                 >
@@ -326,7 +326,7 @@ const TypeOfProducts = () => {
                       </a>
                     </li>
                   </ul>
-                </nav> */}
+                </nav>
               </div>
             </div>
           </div>
